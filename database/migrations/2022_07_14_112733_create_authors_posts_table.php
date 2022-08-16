@@ -13,12 +13,14 @@ class CreateAuthorsPostsTable extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('authors_posts')){
         Schema::create('authors_posts', function (Blueprint $table) {
             $table->integer('post_id')->unsigned()->index();
             $table->integer('authors_id')->unsigned()->index();
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
+    }
     }
 
     /**
@@ -28,6 +30,6 @@ class CreateAuthorsPostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_posts');
+        Schema::dropIfExists('authors_posts');
     }
 }

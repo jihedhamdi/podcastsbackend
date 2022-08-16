@@ -1,9 +1,5 @@
  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.3.8
-    </div>
-    <strong>Copyright &copy; 2016-{{ Carbon\carbon::now()->year }} <a href="http://bitfumes.com">Bitfumes Webnology</a>.</strong> All rights
-    reserved.
+
     <script src="{{ asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>

@@ -6,13 +6,12 @@
 	  <!-- Content Header (Page header) -->
 	  <section class="content-header">
 	    <h1>
-	      Text Editors
-	      <small>Advanced form element</small>
+			Ajouter un Mot clé
 	    </h1>
 	    <ol class="breadcrumb">
-	      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-	      <li><a href="#">Forms</a></li>
-	      <li class="active">Editors</li>
+	      <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+	      <li><a href="{{ route('tag.index') }}">Liste des Mots clés</a></li>
+	      <li class="active">Ajouter un Mot clé</li>
 	    </ol>
 	  </section>
 
@@ -23,7 +22,7 @@
 	        <!-- general form elements -->
 	        <div class="box box-primary">
 	          <div class="box-header with-border">
-	            <h3 class="box-title">Titles</h3>
+	            <h3 class="box-title">Mot clé</h3>
 	          </div>
 
 	          @include('includes.messages')
@@ -34,18 +33,18 @@
 	            <div class="box-body">
 	            <div class="col-lg-offset-3 col-lg-6">
 	              <div class="form-group">
-	                <label for="name">Tag title</label>
-	                <input type="text" class="form-control" id="name" name="name" placeholder="Tag Title">
+	                <label for="name">Mot clé titre</label>
+	                <input type="text" class="form-control" id="name" name="name" placeholder="Titre">
 	              </div>
 
 	              <div class="form-group">
-	                <label for="slug">Tag Slug</label>
+	                <label for="slug">Mot clé Slug</label>
 	                <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug">
 	              </div>
 
 	            <div class="form-group">
-	              <button type="submit" class="btn btn-primary">Submit</button>
-	              <a href='{{ route('tag.index') }}' class="btn btn-warning">Back</a>
+	              <button type="submit" class="btn btn-primary">Enregistrer</button>
+	              <a href='{{ route('tag.index') }}' class="btn btn-warning">Retour</a>
 	            </div>
 	            	
 	            </div>
