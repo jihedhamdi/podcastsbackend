@@ -6,13 +6,12 @@
 	  <!-- Content Header (Page header) -->
 	  <section class="content-header">
 	    <h1>
-	      Text Editors
-	      <small>Advanced form element</small>
+			Ajouter une Authorisation
 	    </h1>
 	    <ol class="breadcrumb">
-	      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-	      <li><a href="#">Forms</a></li>
-	      <li class="active">Editors</li>
+	      <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+	      <li><a href="{{ route('permission.index') }}">Liste des Authorisation</a></li>
+	      <li class="active">Ajouter une Authorisation</li>
 	    </ol>
 	  </section>
 
@@ -23,7 +22,7 @@
 	        <!-- general form elements -->
 	        <div class="box box-primary">
 	          <div class="box-header with-border">
-	            <h3 class="box-title">Permissions</h3>
+	            <h3 class="box-title">Authorisation</h3>
 	          </div>
 
 	          @include('includes.messages')
@@ -34,23 +33,23 @@
 	            <div class="box-body">
 	            <div class="col-lg-offset-3 col-lg-6">
 	              <div class="form-group">
-	                <label for="name">Permission</label>
-	                <input type="text" class="form-control" id="name" name="name" placeholder="Permission">
+	                <label for="name">Authorisation Titre</label>
+	                <input type="text" class="form-control" id="name" name="name" placeholder="Titre">
 	              </div>
 
 	              <div class="form-group">
-	              	<label for="for">Permission for</label>
+	              	<label for="for">Authorisation for</label>
 	              	<select name="for" id="for" class="form-control">
-	              		<option selected disable>Select Permission for</option>
-	              		<option value="user">User</option>
-	              		<option value="post">Post</option>
-	              		<option value="other">Other</option>
+	              		<option selected disable>Sélectionnez Autorisation pour</option>
+	              		<option value="user">utilisateur</option>
+	              		<option value="post">Podcast</option>
+	              		<option value="other">Autre</option>
 	              	</select>
 	              </div>
 
 	            <div class="form-group">
-	              <button type="submit" class="btn btn-primary">Submit</button>
-	              <a href='{{ route('permission.index') }}' class="btn btn-warning">Back</a>
+	              <button type="submit" class="btn btn-primary">Enregistrer</button>
+	              <a href='{{ route('permission.index') }}' class="btn btn-warning">Retour</a>
 	            </div>
 	            	
 	            </div>

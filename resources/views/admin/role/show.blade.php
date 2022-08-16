@@ -9,13 +9,11 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Blank page
-      <small>it all starts here</small>
+    Liste des Rôles
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">Blank page</li>
+      <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+      <li><a href="{{ route('role.index') }}">Liste des Rôles</a></li>
     </ol>
   </section>
 
@@ -25,7 +23,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Roles</h3>
+        <h3 class="box-title">Rôles</h3>
         <a class='col-lg-offset-5 btn btn-success' href="{{ route('role.create') }}">Add New</a>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -36,18 +34,15 @@
       </div>
       <div class="box-body">
         <div class="box">
-                    <div class="box-header">
-                      <h3 class="box-title">Data Table With Full Features</h3>
-                    </div>
-                    <!-- /.box-header -->
+
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
                           <th>S.No</th>
-                          <th>Role Name</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
+                          <th>Titre</th>
+                          <th>Modifier</th>
+                          <th>Supprimer</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,7 +57,7 @@
                                   {{ method_field('DELETE') }}
                                 </form>
                                 <a href="" onclick="
-                                if(confirm('Are you sure, You Want to delete this?'))
+                                if(confirm('Êtes-vous sûr de vouloir supprimer ce Rôle ?'))
                                     {
                                       event.preventDefault();
                                       document.getElementById('delete-form-{{ $role->id }}').submit();
@@ -75,14 +70,7 @@
                           </tr>
                         @endforeach
                         </tbody>
-                        <tfoot>
-                        <tr>
-                          <th>S.No</th>
-                          <th>Role Name</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
-                        </tr>
-                        </tfoot>
+
                       </table>
                     </div>
                     <!-- /.box-body -->

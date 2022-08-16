@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,9 @@ use Illuminate\Http\Request;
 
  //ALL routes/ Api
 Route::group(['middleware'=>'api','namespace'=>'Api'], function(){
+   Route:: apiResource('posts', PostsController::class);
    Route:: get('categories', 'CategoriesController@index');
    Route:: get('tags', 'TagsController@index');
-   Route:: get('posts', 'PostsController@index');
+  
 
 });

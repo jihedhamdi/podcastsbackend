@@ -9,13 +9,12 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Text Editors
-      <small>Advanced form element</small>
+    Ajouter un Podcast
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Forms</a></li>
-      <li class="active">Editors</li>
+      <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+      <li><a href="{{ route('post.index') }}">Liste des Podcasts</a></li>
+      <li class="active">Ajouter un Podcast</li>
     </ol>
   </section>
 
@@ -26,7 +25,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Titles</h3>
+            <h3 class="box-title">Podcasts</h3>
           </div>
           @include('includes.messages')
           <!-- /.box-header -->
@@ -36,17 +35,17 @@
             <div class="box-body">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="title">Post Title</label>
-                  <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                  <label for="title">Podcast Titre</label>
+                  <input type="text" class="form-control" id="title" name="title" placeholder="Titre">
                 </div>
 
                 <div class="form-group">
-                  <label for="subtitle">Post Sub Title</label>
-                  <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sub Title">
+                  <label for="subtitle">Podcast Sous-Titre</label>
+                  <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sous-Titre">
                 </div>
 
                 <div class="form-group">
-                  <label for="slug">Post Slug</label>
+                  <label for="slug">Podcast Slug</label>
                   <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug">
                 </div>
                 
@@ -55,35 +54,35 @@
                             <br>
                               <div class="form-group">
                                 <div class="pull-right">
-                                  <label for="image">File input</label>
+                                  <label for="image">Image</label>
                                   <input type="file" name="image" id="image">
                                 </div>
                                 <div class="checkbox pull-left">
                                   <label>
-                                    <input type="checkbox" name="status" value="1"> Publish
+                                    <input type="checkbox" name="status" value="1"> Enligne
                                   </label>
                                 </div>
                               </div>
                               <br>
                               <div class="form-group" style="margin-top:18px;">
-                                <label>Select Tags</label>
-                                <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select a State" style="width: 100%;" tabindex="-1" aria-hidden="true" name="tags[]">
+                                <label>Sélectionner les Mots clés</label>
+                                <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Sélectionner les Mots clés" style="width: 100%;" tabindex="-1" aria-hidden="true" name="tags[]">
                                 @foreach ($tags as $tag)
                                   <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                 @endforeach
                                 </select>
                               </div>
                               <div class="form-group" style="margin-top:18px;">
-                                <label>Select Author</label>
-                                <select class="form-control select2 select2-hidden-accessible"  data-placeholder="Select a State" style="width: 100%;" tabindex="-1" aria-hidden="true" name="authors">
+                                <label>Sélectionner les Auteurs</label>
+                                <select class="form-control select2 select2-hidden-accessible"  data-placeholder="Sélectionner les Auteurs" style="width: 100%;" tabindex="-1" aria-hidden="true" name="authors">
                                   @foreach ($authors as $author)
                                     <option value="{{ $author->id }}">{{ $author->name }}</option>
                                   @endforeach
                                 </select>
                               </div>
                               <div class="form-group" style="margin-top:18px;">
-                                <label>Select Category</label>
-                                <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select a State" style="width: 100%;" tabindex="-1" aria-hidden="true" name="categories[]">
+                                <label>Sélectionner les Categories</label>
+                                <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Sélectionner les Categories" style="width: 100%;" tabindex="-1" aria-hidden="true" name="categories[]">
                                   @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                   @endforeach
@@ -96,8 +95,7 @@
             
             <div class="box">
              <div class="box-header">
-               <h3 class="box-title">Write Post Body Here
-                 <small>Simple and fast</small>
+               <h3 class="box-title">Contenu
                </h3>
                <!-- tools box -->
                <div class="pull-right box-tools">
@@ -113,8 +111,8 @@
              </div>
 
              <div class="box-footer">
-              <input type="submit" class="btn btn-primary">
-              <a href="{{ route('post.index') }}" class="btn btn-warning">Back</a>
+              <input type="submit" class="btn btn-primary" Value="Enregistrer">
+              <a href="{{ route('post.index') }}" class="btn btn-warning">Retour</a>
             </div>
           </form>
         </div>

@@ -5,20 +5,21 @@ if(version_compare(PHP_VERSION, '7.3.31', '>=')) {
     error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 }
 // User Routes
-Route::group(['namespace' => 'User'],function(){
-	Route::get('/','HomeController@index');
-	Route::get('post/{post}','PostController@post')->name('post');
+// Route::group(['namespace' => 'User'],function(){
+	// Route::get('/','HomeController@index');
+	// Route::get('post/{post}','PostController@post')->name('post');
 
-	Route::get('post/tag/{tag}','HomeController@tag')->name('tag');
-	Route::get('post/category/{category}','HomeController@category')->name('category');
+	// Route::get('post/tag/{tag}','HomeController@tag')->name('tag');
+	// Route::get('post/category/{category}','HomeController@category')->name('category');
 
 	//vue routes
-	Route::post('getPosts','PostController@getAllPosts');
-	Route::post('saveLike','PostController@saveLike');
-});
+	// Route::post('getPosts','PostController@getAllPosts');
+	// Route::post('saveLike','PostController@saveLike');
+// });
 
 //Admin Routes
 Route::group(['namespace' => 'Admin'],function(){
+	Route::get('/','HomeController@index')->name('admin.home');
 	Route::get('admin/home','HomeController@index')->name('admin.home');
 	// Users Routes
 	Route::resource('admin/user','UserController');
