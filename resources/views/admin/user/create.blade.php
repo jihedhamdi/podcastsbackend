@@ -4,14 +4,17 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+	  <section class="content-header">
       @include('admin.layouts.pagehead')
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">Editors</li>
-      </ol>
-    </section>
+	    <h1>
+			Ajouter un Admin
+	    </h1>
+	    <ol class="breadcrumb">
+	      <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+	      <li><a href="{{ route('user.index') }}">Liste des Admins</a></li>
+	      <li class="active">Ajouter un Admin</li>
+	    </ol>
+	  </section>
 
     <!-- Main content -->
     <section class="content">
@@ -20,7 +23,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Admin</h3>
+              <h3 class="box-title">Ajouter un Admin</h3>
             </div>
 
             @include('includes.messages')
@@ -31,8 +34,8 @@
               <div class="box-body">
               <div class="col-lg-offset-3 col-lg-6">
                 <div class="form-group">
-                  <label for="name">User Name</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="User Name" value="{{ old('name') }}">
+                  <label for="name">Admin Nom</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Admin Nom" value="{{ old('name') }}">
                 </div>
 
                 <div class="form-group">
@@ -41,31 +44,31 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="phone">Phone</label>
-                  <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" value="{{ old('phone') }}">
+                  <label for="phone">téléphone</label>
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="téléphone" value="{{ old('phone') }}">
                 </div>
 
                 <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="password" value="{{ old('password') }}">
+                  <label for="password">Mot de pass</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Mot de pass" value="{{ old('password') }}">
                 </div>
 
                 <div class="form-group">
-                  <label for="password_confirmation">Confirm Passowrd</label>
-                  <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="confirm passowrd">
+                  <label for="password_confirmation">Confirmer Mot de pass</label>
+                  <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirmer Mot de pass">
                 </div>
 
                 <div class="form-group">
-                  <label for="confirm_passowrd">Status</label>
+                  <label for="confirm_passowrd">Etat</label>
                   <div class="checkbox">
                     <label ><input type="checkbox" name="status" @if (old('status') == 1)
                       checked
-                    @endif value="1">Status</label>
+                    @endif value="1">Etat</label>
                   </div>
                 </div>
 
                 <div class="form-group">
-                <label>Assign Role</label>
+                <label>Attribuer les rôles</label>
                 <div class="row">
                   @foreach ($roles as $role)
                       <div class="col-lg-3">
@@ -77,8 +80,8 @@
                 </div>
 
               <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <a href='{{ route('user.index') }}' class="btn btn-warning">Back</a>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a href='{{ route('user.index') }}' class="btn btn-warning">Retour</a>
               </div>
                 
               </div>

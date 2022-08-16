@@ -10,13 +10,11 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Blank page
-      <small>it all starts here</small>
+    Liste des Podcasts
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">Blank page</li>
+      <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
+      <li><a href="{{ route('post.index') }}">Liste des Podcasts</a></li>
     </ol>
   </section>
 
@@ -26,9 +24,9 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+        <h3 class="box-title">Podcasts</h3>
         @can('posts.create', Auth::user())
-          <a class='col-lg-offset-5 btn btn-success' href="{{ route('post.create') }}">Add New</a>
+          <a class='col-lg-offset-5 btn btn-success' href="{{ route('post.create') }}">Ajouter un Podcast</a>
         @endcan
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -39,24 +37,21 @@
       </div>
       <div class="box-body">
         <div class="box">
-                    <div class="box-header">
-                      <h3 class="box-title">Data Table With Full Features</h3>
-                    </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
                           <th>S.No</th>
-                          <th>Title</th>
-                          <th>Sub Title</th>
+                          <th>Titre</th>
+                          <th>Sous-Titre</th>
                           <th>Slug</th>
-                          <th>Creatd At</th>
+                          <th>Date de création</th>
                           @can('posts.update',Auth::user())
-                          <th>Edit</th>
+                          <th>Modifier</th>
                           @endcan
                            @can('posts.delete', Auth::user())
-                          <th>Delete</th>
+                          <th>supprimer</th>
                           @endcan
                         </tr>
                         </thead>
@@ -80,7 +75,7 @@
                                 {{ method_field('DELETE') }}
                               </form>
                               <a href="" onclick="
-                              if(confirm('Are you sure, You Want to delete this?'))
+                              if(confirm('Êtes-vous sûr de vouloir supprimer ce Podcast ?'))
                                   {
                                     event.preventDefault();
                                     document.getElementById('delete-form-{{ $post->id }}').submit();
@@ -93,31 +88,12 @@
                           </tr>
                         @endforeach
                         </tbody>
-                        <tfoot>
-                        <tr>
-                          <th>S.No</th>
-                          <th>Title</th>
-                          <th>Sub Title</th>
-                          <th>Slug</th>
-                          <th>Creatd At</th>
-                          @can('posts.update',Auth::user())
-                          <th>Edit</th>
-                          @endcan
-                           @can('posts.delete', Auth::user())
-                          <th>Delete</th>
-                          @endcan
-                        </tr>
-                        </tfoot>
                       </table>
                     </div>
                     <!-- /.box-body -->
                   </div>
       </div>
-      <!-- /.box-body -->
-      <div class="box-footer">
-        Footer
-      </div>
-      <!-- /.box-footer-->
+
     </div>
     <!-- /.box -->
 

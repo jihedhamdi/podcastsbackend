@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class PostController extends Controller
 {
@@ -68,9 +69,14 @@ class PostController extends Controller
             'image' => 'required',
             ]);
         if ($request->hasFile('image')) {
-            $imageName   = time() .  $request->image->getClientOriginalName();
+            $imageName   = time() .  $request->image->getClientOriginalExtension();
             Storage::disk('public')->put( "posts/".$imageName, File::get($request->image));
             // $imageName = $request->image->store('posts');
+            $path = "storage/posts/thumbs/300_".$imageName.'.webp'; 
+            $image_resize = Image::make($request->image->getRealPath());
+            $image_resize->encode('webp', 90);                  
+            $image_resize->resize(300, 300);
+            $image_resize->save($path);
         }else{
             return 'No';
         }
@@ -134,9 +140,15 @@ class PostController extends Controller
             'body' => 'required'
             ]);
         if ($request->hasFile('image')) {
-            $imageName   = time() .  $request->image->getClientOriginalName();
+            $imageName   = time() .  $request->image->getClientOriginalExtension();
             Storage::disk('public')->put( "posts/".$imageName, File::get($request->image));
             //$imageName = $request->image->store('posts');
+           // $path = asset('storage/posts/thumbs/')."/".$imageName;
+           $path = "storage/posts/thumbs/300_".$imageName.'.webp'; 
+           $image_resize = Image::make($request->image->getRealPath());
+           $image_resize->encode('webp', 90);                  
+           $image_resize->resize(300, 300);
+           $image_resize->save($path);
         }
 
         $post = post::find($id);

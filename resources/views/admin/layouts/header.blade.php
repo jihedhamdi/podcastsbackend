@@ -29,8 +29,7 @@
                 <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ Auth::user()->name }} - Web Developer
-                  <small>Member since {{ Auth::user()->created_at->toFormattedDateString() }}</small>
+                  {{ Auth::user()->name }} 
                 </p>
               </li>
               <!-- Menu Footer-->

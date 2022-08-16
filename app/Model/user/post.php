@@ -35,6 +35,10 @@ class post extends Model
     {
         return $this->hasMany('App\Model\user\like');
     }
+    public function bookmark()
+    {
+        return $this->hasMany('App\Model\user\bookmark');
+    }
 
     // public function getSlugAttribute($value)
     // {
