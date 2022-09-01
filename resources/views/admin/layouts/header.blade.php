@@ -35,7 +35,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ route('user.edit', Auth::user()->id) }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="btn btn-default pull-right">
                       <a href="{{ route('logout') }}"

@@ -2,6 +2,7 @@
 
 @section('headSection')
 <link rel="stylesheet" href="{{ asset('admin/plugins/datatables/dataTables.bootstrap.css') }}">
+<link href="{{ asset('admin/bootstrap/css/bootstrap-toggle.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('main-content')
@@ -48,6 +49,7 @@
                           <th>Slug</th>
                           <th>Date de création</th>
                           @can('posts.update',Auth::user())
+                          <th>Etat</th>
                           <th>Modifier</th>
                           @endcan
                            @can('posts.delete', Auth::user())
@@ -65,6 +67,7 @@
                             <td>{{ $post->created_at }}</td>
 
                             @can('posts.update',Auth::user())
+                              <td><input data-id="{{ $post->id }}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $post->status ? 'checked' : '' }}></td>
                               <td><a href="{{ route('post.edit',$post->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
                             @endcan
 
@@ -105,9 +108,25 @@
 @section('footerSection')
 <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin/bootstrap/js/bootstrap-toggle.min.js') }}"></script>
 <script>
   $(function () {
+    $('.toggle-class').change(function() {
+        var status = $(this).prop('checked') == true ? 1 : 0; 
+        var podcast_id = $(this).data('id'); 
+         
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/admin/post_Status',
+            data: {'status': status, 'podcast_id': podcast_id},
+            success: function(data){
+              console.log(data.success)
+            }
+        });
+    })
     $("#example1").DataTable();
+
   });
 </script>
 @endsection

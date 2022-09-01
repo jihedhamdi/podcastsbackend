@@ -34,12 +34,12 @@
 	            <div class="col-lg-offset-3 col-lg-6">
 	              <div class="form-group">
 	                <label for="name">Mot clé titre</label>
-	                <input type="text" class="form-control" id="name" name="name" placeholder="Titre">
+	                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Titre">
 	              </div>
 
 	              <div class="form-group">
 	                <label for="slug">Mot clé Slug</label>
-	                <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug">
+	                <input type="text" class="form-control" id="slug" name="slug" value="{{ old('name') }}" placeholder="Slug">
 	              </div>
 
 	            <div class="form-group">

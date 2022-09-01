@@ -34,7 +34,7 @@
 	            <div class="col-lg-offset-3 col-lg-6">
 	              <div class="form-group">
 	                <label for="name">Rôle Titre</label>
-	                <input type="text" class="form-control" id="name" name="name" placeholder="Titre">
+	                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Titre">
 	              </div>
 				
 				<div class="row">
@@ -43,7 +43,7 @@
 	              	@foreach ($permissions as $permission)
 	              		@if ($permission->for == 'post')
 			              	<div class="checkbox">
-			              		<label><input type="checkbox" name="permission[]" value="{{ $permission->id }}">{{ $permission->name }}</label>
+			              		<label><input type="checkbox" name="permission[]" value="{{ $permission->id }}"  @if(in_array($permission->id, old('permission')) ) checked @endif>{{ $permission->name }}</label>
 			              	</div>
 	              		@endif
 	              	@endforeach
@@ -53,7 +53,7 @@
   	              	@foreach ($permissions as $permission)
   	              		@if ($permission->for == 'user')
   			              	<div class="checkbox">
-  			              		<label><input type="checkbox" name="permission[]" value="{{ $permission->id }}">{{ $permission->name }}</label>
+  			              		<label><input type="checkbox" name="permission[]" value="{{ $permission->id }}"  @if(in_array($permission->id, old('permission')) ) checked @endif>{{ $permission->name }}</label>
   			              	</div>
   	              		@endif
   	              	@endforeach
@@ -64,7 +64,7 @@
   	              	@foreach ($permissions as $permission)
   	              		@if ($permission->for == 'other')
   			              	<div class="checkbox">
-  			              		<label><input type="checkbox" name="permission[]" value="{{ $permission->id }}">{{ $permission->name }}</label>
+  			              		<label><input type="checkbox" name="permission[]" value="{{ $permission->id }}"  @if(in_array($permission->id, old('permission')) ) checked  @endif>{{ $permission->name }}</label>
   			              	</div>
   	              		@endif
   	              	@endforeach

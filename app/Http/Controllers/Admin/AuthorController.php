@@ -52,9 +52,16 @@ class AuthorController extends Controller
     {
        
         $this->validate($request,[
+            'last_name' => 'required',
+            'first_name' => 'required',
             'name' => 'required',
-            'slug' => 'required',
+            'email' => 'required',
+            'job_name' => 'required',
+            'gender' => 'required',
+            'slug' => 'required|unique:authors,slug|alpha_dash',
             'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg',
+            'bgimage' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg',
             'color' => 'required'
             ]);
             if ($request->hasFile('image')) {
@@ -65,12 +72,28 @@ class AuthorController extends Controller
             else{
                  return 'No';
              }
+
+             if ($request->hasFile('bgimage')) {
+                $bgimageName   = 'bg_'.time() .  $request->bgimage->getClientOriginalName();
+                Storage::disk('public')->put( "author/bg/".$bgimageName, File::get($request->bgimage));
+                // $imageName = $request->image->store('posts');
+             }
+            else{
+                 return 'No';
+             }
+
         $author = new authors;
+        $author->first_name = $request->first_name;
+        $author->last_name = $request->last_name;
         $author->name = $request->name;
+        $author->email = $request->email;
+        $author->job_name = $request->job_name;
+        $author->gender = $request->gender;
         $author->slug = $request->slug;
         $author->description = $request->description;
         $author->color = $request->color;
         $author->image = $imageName;
+        $author->bgimage = $bgimageName;
         $author->save();
 
         return redirect(route('authors.index'));
@@ -108,30 +131,55 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->hasFile('image')) {
+            $checkimagereq ="'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg'";
+            }
+            if ($request->hasFile('bgimage')) {
+                $checkimagebgreq ="'bgimage' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg'";
+                }
+
         $this->validate($request,[
+            'last_name' => 'required',
+            'first_name' => 'required',
             'name' => 'required',
-            'slug' => 'required',
+            'email' => 'required',
+            'job_name' => 'required',
+            'gender' => 'required',
+            'slug' => 'required|unique:authors,slug,'.$id.'|alpha_dash',
             'description' => 'required',
+            $checkimagereq,
+            $checkimagebgreq,
             'color' => 'required',
             ]);
             if ($request->hasFile('image')) {
-                $imageName   = AuthorController . phptime();
+                $imageName   = time() .  $request->image->getClientOriginalName();
                 Storage::disk('public')->put( "author/".$imageName, File::get($request->image));
-                // $imageName = $request->image->store('posts');
-            }else{
-                return 'No';
             }
+
+            if ($request->hasFile('bgimage')) {
+                $bgimageName   = 'bg_'.time() .  $request->bgimage->getClientOriginalName();
+                Storage::disk('public')->put( "author/bg/".$bgimageName, File::get($request->bgimage));
+
+             }
         $author = authors::find($id);
+        $author->first_name = $request->first_name;
+        $author->last_name = $request->last_name;
         $author->name = $request->name;
+        $author->email = $request->email;
+        $author->job_name = $request->job_name;
+        $author->gender = $request->gender;
         $author->slug = $request->slug;
         $author->description = $request->description;
         $author->color = $request->color;
         if ($request->hasFile('image')) {
             $author->image = $imageName;
         }
+        if ($request->hasFile('bgimage')) {
+            $author->bgimage = $bgimageName;
+        }
         $author->save();
 
-        return redirect(route('author.index'));
+        return redirect(route('authors.index'));
     }
 
     /**

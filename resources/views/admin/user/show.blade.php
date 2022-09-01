@@ -2,6 +2,7 @@
 
 @section('headSection')
 <link rel="stylesheet" href="{{ asset('admin/plugins/datatables/dataTables.bootstrap.css') }}">
+<link href="{{ asset('admin/bootstrap/css/bootstrap-toggle.min.css') }}" rel="stylesheet">
 @endsection
 @section('main-content')
 <!-- Content Wrapper. Contains page content -->
@@ -24,7 +25,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Users</h3>
+        <h3 class="box-title">Admins</h3>
         <a class='col-lg-offset-5 btn btn-success' href="{{ route('user.create') }}">Ajouter un Admin </a>
         @include('includes.messages')
         <div class="box-tools pull-right">
@@ -59,7 +60,7 @@
                                 {{ $role->name }},
                               @endforeach
                             </td>
-                            <td>{{ $user->status? 'Enligne' : 'hors ligne' }}</td>
+                            <td><input data-id="{{ $user->id }}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $user->status ? 'checked' : '' }}></td>
                               <td><a href="{{ route('user.edit',$user->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
                               <td>
                                 <form id="delete-form-{{ $user->id }}" method="post" action="{{ route('user.destroy',$user->id) }}" style="display: none">
@@ -80,16 +81,6 @@
                           </tr>
                         @endforeach
                         </tbody>
-                        <tfoot>
-                        <tr>
-                          <th>S.No</th>
-                          <th>User Name</th>
-                          <th>Assigned Roles</th>
-                          <th>Status</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
-                        </tr>
-                        </tfoot>
                       </table>
                     </div>
                     <!-- /.box-body -->
@@ -112,9 +103,25 @@
 @section('footerSection')
 <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin/bootstrap/js/bootstrap-toggle.min.js') }}"></script>
 <script>
   $(function () {
+    $('.toggle-class').change(function() {
+        var status = $(this).prop('checked') == true ? 1 : 0; 
+        var user_id = $(this).data('id'); 
+         
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/admin/user_Status',
+            data: {'status': status, 'user_id': user_id},
+            success: function(data){
+              console.log(data.success)
+            }
+        });
+    })
     $("#example1").DataTable();
+
   });
 </script>
 @endsection

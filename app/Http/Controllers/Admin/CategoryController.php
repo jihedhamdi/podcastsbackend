@@ -52,13 +52,14 @@ class CategoryController extends Controller
        
         $this->validate($request,[
             'name' => 'required',
-            'slug' => 'required',
+            'slug' => 'required|unique:categories,slug|alpha_dash',
             'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg',
             'color' => 'required'
             ]);
             if ($request->hasFile('image')) {
                 $imageName   = time() .  $request->image->getClientOriginalName();
-                Storage::disk('public')->put( "categories/".$imageName, File::get($request->image));
+                Storage::disk('public')->put( "category/".$imageName, File::get($request->image));
                 // $imageName = $request->image->store('posts');
              }
             else{
@@ -107,18 +108,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->hasFile('image')) {
+            $checkimagereq ="'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg'";
+            }
+
         $this->validate($request,[
             'name' => 'required',
-            'slug' => 'required',
+            'slug' => 'required|unique:categories,slug,'.$id.'|alpha_dash',
             'description' => 'required',
+            $checkimagereq,
             'color' => 'required',
             ]);
             if ($request->hasFile('image')) {
                 $imageName   = time() .  $request->image->getClientOriginalName();
-                Storage::disk('public')->put( "categories/".$imageName, File::get($request->image));
-                // $imageName = $request->image->store('posts');
-            }else{
-                return 'No';
+                Storage::disk('public')->put( "category/".$imageName, File::get($request->image));
             }
         $category = category::find($id);
         $category->name = $request->name;

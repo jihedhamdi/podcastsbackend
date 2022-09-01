@@ -19,10 +19,31 @@ use Illuminate\Support\Facades\Route;
 // });
 
  //ALL routes/ Api
-Route::group(['middleware'=>'api','namespace'=>'Api'], function(){
-   Route:: apiResource('posts', PostsController::class);
+Route::group(['middleware'=>'cors','namespace'=>'Api'], function(){
+   //     return podcasts
+   //index
+   Route:: get('posts', 'PostsController@index');
+   // show
+   Route:: get('posts/{slug}', 'PostsController@show');
+   // animation 
+   Route:: get('animation', 'PostsController@animationPodcast');
+   // search
+   Route:: get('posts/search/{keywords}', 'PostsController@search');
+
+   // return categories
    Route:: get('categories', 'CategoriesController@index');
+   // show
+   Route:: get('categories/{slug}', 'CategoriesController@show');
+
+   // return tags
    Route:: get('tags', 'TagsController@index');
+    // show
+    Route:: get('tags/{slug}', 'TagsController@show');
+
+   // return authors
+   Route:: get('authors', 'AuthorsController@index');
+   // show
+   Route:: get('authors/{slug}', 'AuthorsController@show');
   
 
 });
