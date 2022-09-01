@@ -23,7 +23,7 @@ class PostsResource extends Resource
             'title' => $this->title,
             'desc' => $this->subtitle,
             'date' => $this->updated_at->format('M d, y'),
-            'href' => '/posts/'.$this->slug,
+            'href' => '/podcast/'.$this->slug,
             'commentCount' => 0,
             'viewdCount' => 0,
             'readingTime' => 0,
@@ -44,6 +44,26 @@ class PostsResource extends Resource
              'desc' => $this->authors[0]->description,
              'jobName' => $this->authors[0]->jobName,
             ],
+            'categories' => $this->categories->map(function ($categories) { return  ['id' => $categories->id,
+                'name' => $categories->name,
+                'href' => '/categories/'.$categories->slug,
+                'thumbnail' => asset('storage/category/'.$categories->image),
+                'count' =>  count($categories->pivot),
+                'color' => $categories->color,
+                'taxonomy' => "category"                
+            ];}),
+            'postType' => "audio",
+            'audioUrl' => $this->audio_link,
+            'tags' => $this->tags->map(function ($tags) { return  ['id' => $tags->id,
+                'name' => $tags->name,
+                'href' => '/tags/'.$tags->slug,
+                'thumbnail' => asset('storage/tags/'.$tags->image),
+                'count' =>  count($tags->pivot),
+                'color' => $tags->color,
+                'taxonomy' => "tags"                
+            ];}),
+            'content' => $this->body,
+            'comments' => []
         ];
     }
 }

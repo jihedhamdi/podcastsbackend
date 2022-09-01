@@ -34,7 +34,7 @@
 	            <div class="col-lg-offset-3 col-lg-6">
 	              <div class="form-group">
 	                <label for="name">Authorisation Titre</label>
-	                <input type="text" class="form-control" id="name" name="name" placeholder="Titre">
+	                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Titre">
 	              </div>
 
 	              <div class="form-group">

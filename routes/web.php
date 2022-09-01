@@ -23,12 +23,14 @@ Route::group(['namespace' => 'Admin'],function(){
 	Route::get('admin/home','HomeController@index')->name('admin.home');
 	// Users Routes
 	Route::resource('admin/user','UserController');
+	Route::get('admin/user_Status', 'UserController@changeStatus');
 	// Roles Routes
 	Route::resource('admin/role','RoleController');
 	// Permission Routes
 	Route::resource('admin/permission','PermissionController');
 	// Post Routes
 	Route::resource('admin/post','PostController');
+	Route::get('admin/post_Status', 'PostController@changeStatus');
 	// Tag Routes
 	Route::resource('admin/tag','TagController');
 	// Category Routes

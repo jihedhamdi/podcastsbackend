@@ -49,7 +49,7 @@ class TagController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
-            'slug' => 'required',
+            'slug' => 'required|unique:tags,slug|alpha_dash',
             ]);
         $tag = new tag;
         $tag->name = $request->name;
@@ -93,7 +93,7 @@ class TagController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
-            'slug' => 'required',
+            'slug' => 'required|unique:tags,slug,'.$id.'|alpha_dash',
             ]);
         $tag = tag::find($id);
         $tag->name = $request->name;

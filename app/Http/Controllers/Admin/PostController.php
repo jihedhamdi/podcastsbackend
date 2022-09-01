@@ -64,9 +64,10 @@ class PostController extends Controller
         $this->validate($request,[
             'title'=>'required',
             'subtitle' => 'required',
-            'slug' => 'required',
+            'slug' => 'required|unique:posts,slug|alpha_dash',
             'body' => 'required',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg',
+            'audio_link' => 'required',
             ]);
         if ($request->hasFile('image')) {
             $imageName   = time() .  $request->image->getClientOriginalExtension();
@@ -86,7 +87,11 @@ class PostController extends Controller
         $post->subtitle = $request->subtitle;
         $post->slug = $request->slug;
         $post->body = $request->body;
-        $post->status = $request->status;
+        $post->status = $request->status? : 0;
+        $post->animation = $request->animation? : 0;
+        $post->access = $request->access? : 0;
+        $post->visible = $request->visible? : 0;
+        $post->audio_link = $request->audio_link;
         $post->save();
         $post->tags()->sync($request->tags);
         $post->categories()->sync($request->categories);
@@ -133,11 +138,17 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->hasFile('image')) {
+            $checkimagereq ="'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg'";
+            }
         $this->validate($request,[
             'title'=>'required',
             'subtitle' => 'required',
-            'slug' => 'required',
-            'body' => 'required'
+            'slug' => 'required|unique:posts,slug,'.$id.'|alpha_dash',
+            'body' => 'required',
+             $checkimagereq,
+            'audio_link' => 'required'
+           
             ]);
         if ($request->hasFile('image')) {
             $imageName   = time() .  $request->image->getClientOriginalExtension();
@@ -159,7 +170,11 @@ class PostController extends Controller
         $post->subtitle = $request->subtitle;
         $post->slug = $request->slug;
         $post->body = $request->body;
-        $post->status = $request->status;
+        $post->status = $request->status? : 0;
+        $post->animation = $request->animation? : 0;
+        $post->access = $request->access? : 0;
+        $post->visible = $request->visible? : 0;
+        $post->audio_link = $request->audio_link;
         $post->tags()->sync($request->tags);
         $post->categories()->sync($request->categories);
         $post->authors()->sync($request->authors);
@@ -178,5 +193,14 @@ class PostController extends Controller
     {
         post::where('id',$id)->delete();
         return redirect()->back();
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $post = post::find($request->podcast_id);
+        $post->status = $request->status;
+        $post->save();
+  
+        return response()->json(['success'=>'Status change successfully.']);
     }
 }

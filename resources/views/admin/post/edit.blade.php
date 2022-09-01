@@ -49,26 +49,77 @@
                   <label for="slug">Podcast Slug</label>
                   <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ $post->slug }}">
                 </div>
+
+                <div class="form-group">
+                  <label for="slug">Podcast mp3 url</label>
+                  <input type="text" class="form-control" id="audio_link" name="audio_link"  value="{{ $post->audio_link }}" placeholder="mp3 url">
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label"><strong>Options</strong></label>
+                  <div class="controls">
+                      <div class="row-fluid">
+                          <div class="span5">
+                              <table border="0" width="500" style="display: flex;padding-left: 50px;">
+                                  <tr>
+                                      <td><label class="checkbox line">
+                                              <input type="checkbox" name="animation" value="1"
+                                              @if ($post->animation == 1)
+                                              {{'checked'}}
+                                            @endif><strong>Animation
+                                                  à la une</strong>
+                                          </label></td>
+                                  </tr>
+                                  <tr>
+                                      <td><label class="checkbox line">
+                                              <input type="checkbox" name="access" value="1"
+                                              @if ($post->access == 1)
+                                              {{'checked'}}
+                                            @endif><strong>
+                                                  Accées limité au abonnées </strong>
+                                          </label></td>
+                                  </tr>
+                                  <tr>
+                                      <td><label class="checkbox line">
+                                              <input type="checkbox" name="visible" value="1"
+                                              @if ($post->visible == 1)
+                                              {{'checked'}}
+                                            @endif><strong>
+                                                  Contenu invisible</strong>
+                                          </label></td>
+                                  </tr>
+                                  <tr>
+                                      <td> <label class="checkbox line">
+                                              <input type="checkbox" name="status" value="1"
+                                              @if ($post->status == 1)
+                                              {{'checked'}}
+                                            @endif>
+                                              <strong> Enligne </strong>
+                                          </label></td>
+                                      <td> </td>
+                                  </tr>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
                 
               </div>
-              @if( $post->image)
-                <img src="{{asset('storage/posts/thumbs/300_'.$post->image.'.webp')}}"/>
-              @endif
+             
               <div class="col-lg-6">
                 <br>
-                <div class="form-group">
+                <div class="form-group" style="display: flex;">
                   <div class="pull-right">
                     <label for="image">Image</label>
                     <input type="file" name="image" id="image">
-                  </div>
-                  <div class="checkbox pull-left">
-                    <label>
-                      <input type="checkbox" name="status" value="1" @if ($post->status == 1)
-                        {{'checked'}}
-                      @endif> Enligne
-                    </label>
+                    @if( $post->image)
+                    <img id="preview-image-before-upload" src="{{asset('storage/posts/thumbs/300_'.$post->image.'.webp')}}" width="300px" height="300px"/>
+                  @else
+                  <img id="preview-image-before-upload" src=""   style="max-height: 300px;width: 300px;display: none;" />
+                  @endif
                   </div>
                 </div>
+                
                 <br>
                 <div class="form-group" style="margin-top:18px;">
                   <label>Sélectionner les Mots clés</label>
@@ -166,4 +217,26 @@
     $(".select2").select2();
   });
 </script>
+<script type="text/javascript">
+      
+  $(document).ready(function (e) {
+   
+     
+     $('#image').change(function(){
+              
+      let reader = new FileReader();
+   
+      reader.onload = (e) => { 
+   
+        $('#preview-image-before-upload').attr('src', e.target.result); 
+        $('#preview-image-before-upload').css('display', "block");
+      }
+   
+      reader.readAsDataURL(this.files[0]); 
+     
+     });
+     
+  });
+   
+  </script>
 @endsection

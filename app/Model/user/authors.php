@@ -11,6 +11,11 @@ class authors extends Model
     	return $this->belongsToMany('App\Model\user\post','authors_posts')->orderBy('created_at','DESC')->paginate(5);
     }
 
+    public function posts_author()
+    {
+    	return $this->belongsToMany('App\Model\user\post','authors_posts');
+    }
+
     public function getRouteKeyName()
     {
     	return 'slug';

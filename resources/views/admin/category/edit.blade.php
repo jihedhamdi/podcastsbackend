@@ -27,7 +27,7 @@
 	    		@include('includes.messages')      
 	          <!-- /.box-header -->
 	          <!-- form start -->
-	          <form role="form" action="{{ route('category.update',$category->id) }}" method="post">
+	          <form role="form" action="{{ route('category.update',$category->id) }}" method="post" enctype="multipart/form-data">
 	          {{ csrf_field() }}
 	          {{ method_field('PUT') }}
 	            <div class="box-body">
@@ -54,6 +54,11 @@
                     <label for="image">Catégorie image</label>
                     <input type="file" name="image" id="image" value="{{ $category->image}}">
                   </div>
+			  @if( $category->image)
+                    <img id="preview-image-before-upload" src="{{asset('storage/category'.$category->image.'.webp')}}" width="300px" height="300px"/>
+                  @else
+                  <img id="preview-image-before-upload" src=""   style="max-height: 300px;width: 300px;display: none;" />/>
+                  @endif
 	            <div class="form-group">
 	              <button type="submit" class="btn btn-primary">Enregistrer</button>
 	              <a href="{{ route('category.index') }}" class="btn btn-warning">Retour</a>
@@ -76,4 +81,28 @@
 	  <!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
+@endsection
+@section('footerSection')
+<script type="text/javascript">
+      
+	$(document).ready(function (e) {
+	 
+	   
+	   $('#image').change(function(){
+				
+		let reader = new FileReader();
+	 
+		reader.onload = (e) => { 
+	 
+		  $('#preview-image-before-upload').attr('src', e.target.result); 
+		  $('#preview-image-before-upload').css('display', "block");
+		}
+	 
+		reader.readAsDataURL(this.files[0]); 
+	   
+	   });
+	   
+	});
+	 
+	</script>
 @endsection

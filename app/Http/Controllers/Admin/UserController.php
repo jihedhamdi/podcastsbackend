@@ -115,4 +115,12 @@ class UserController extends Controller
         admin::where('id',$id)->delete();
         return redirect()->back()->with('message','User is deleted successfully');
     }
+    public function changeStatus(Request $request)
+    {
+        $user = admin::find($request->user_id);
+        $user->status = $request->status;
+        $user->save();
+  
+        return response()->json(['success'=>'Status change successfully.']);
+    }
 }
