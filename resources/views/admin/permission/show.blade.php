@@ -32,7 +32,7 @@
             <i class="fa fa-times"></i></button>
         </div>
       </div>
-      <div class="box-body">
+      <div class="box-body" style="overflow-x: auto;">
         <div class="box">
                     <div class="box-header">
                       @include('includes.messages')
@@ -42,11 +42,10 @@
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>S.No</th>
+                          <th>ID</th>
                           <th>Titre</th>
                           <th>Type</th>
-                          <th>Modifier</th>
-                          <th>Supprimer</th>
+                          <th>Gestion</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -55,8 +54,7 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $permission->name }}</td>
                             <td>{{ $permission->for }}</td>
-                              <td><a href="{{ route('permission.edit',$permission->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                              <td>
+                              <td><a href="{{ route('permission.edit',$permission->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 <form id="delete-form-{{ $permission->id }}" method="post" action="{{ route('permission.destroy',$permission->id) }}" style="display: none">
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}

@@ -32,17 +32,16 @@
             <i class="fa fa-times"></i></button>
         </div>
       </div>
-      <div class="box-body">
+      <div class="box-body" style="overflow-x: auto;">
         <div class="box">
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>S.No</th>
+                          <th>ID</th>
                           <th>Titre</th>
                           <th>Slug</th>
-                          <th>Modifier</th>
-                          <th>supprimer</th>
+                          <th>Gestion</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,8 +50,7 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $tag->name }}</td>
                             <td>{{ $tag->slug }}</td>
-                              <td><a href="{{ route('tag.edit',$tag->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                              <td>
+                              <td><a href="{{ route('tag.edit',$tag->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 <form id="delete-form-{{ $tag->id }}" method="post" action="{{ route('tag.destroy',$tag->id) }}" style="display: none">
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}

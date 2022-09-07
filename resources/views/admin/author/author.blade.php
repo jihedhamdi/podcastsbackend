@@ -30,37 +30,37 @@
 	            <div class="box-body">
 	            <div class="col-lg-offset-3 col-lg-6">
 	              <div class="form-group">
-	                <label for="name"> nom  </label>
+	                <label for="name">Nom  </label>
 	                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" placeholder="nom">
 	              </div>
 
 				  <div class="form-group">
-	                <label for="name"> prénom  </label>
+	                <label for="name">Prénom  </label>
 	                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" placeholder="pseudo">
 	              </div>
 
 				  <div class="form-group">
-	                <label for="name"> pseudo  </label>
+	                <label for="name">Pseudo  </label>
 	                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="pseudo">
 	              </div>
 
 				  <div class="form-group">
-	                <label for="name"> email  </label>
+	                <label for="name">Email  </label>
 	                <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="email">
 	              </div>
 
 	              <div class="form-group">
-	                <label for="slug"> Slug</label>
+	                <label for="slug">Slug</label>
 	                <input type="text" class="form-control" id="slug" name="slug" value="{{ old('slug') }}" placeholder="Slug">
 	              </div>
 
 				  <div class="form-group">
-	                <label for="slug"> description</label>
+	                <label for="slug">Description</label>
 	                <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" placeholder="Description">
 	              </div>
 
 				  <div class="form-group">
-	                <label for="name"> nom du métier </label>
+	                <label for="name">Nom du métier </label>
 	                <input type="text" class="form-control" id="job_name" name="job_name" value="{{ old('job_name') }}" placeholder="nom du métier">
 	              </div>
 
@@ -73,18 +73,18 @@
 					</div>
 
 				  <div class="form-group">
-	                <label for="slug"> Couleur</label>
+	                <label for="slug">Couleur</label>
 	                <input type="color" class="form-control" id="color" name="color" value="{{ old('color') }}" placeholder="Couleur"  style="width: 45px;">
 	              </div>
 				  <div class="form-group">
-                    <label for="image"> image</label>
+                    <label for="image">Image</label>
 					<input type="file" name="image" id="image" value="{{ old('image') }}">
                   </div>
 				  <img id="preview-image-before-upload" src=""
                       alt="preview image"  style="max-height: 300px;width: 300px;display: none;">
 
 					<div class="form-group">
-					<label for="bgimage"> image</label>
+					<label for="bgimage">Background Image</label>
 					<input type="file" name="bgimage" id="bgimage" value="{{ old('bgimage') }}">
 					</div>
 					<img id="preview_bgimage" src=""

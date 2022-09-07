@@ -34,12 +34,12 @@
 	            <div class="box-body">
 	            <div class="col-lg-offset-3 col-lg-6">
 	              <div class="form-group">
-	                <label for="name">Mot clé titre</label>
+	                <label for="name">Titre</label>
 	                <input type="text" class="form-control" id="name" name="name" placeholder="Titre" value="{{ $tag->name }}">
 	              </div>
 
 	              <div class="form-group">
-	                <label for="slug">Mot clé Slug</label>
+	                <label for="slug">Slug</label>
 	                <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ $tag->slug }}"> 
 	              </div>
 

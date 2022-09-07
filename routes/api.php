@@ -30,6 +30,9 @@ Route::group(['middleware'=>'cors','namespace'=>'Api'], function(){
    // search
    Route:: get('posts/search/{keywords}', 'PostsController@search');
 
+   //testpagination
+   Route:: get('postspaginate', 'PostsController@testpaginate');
+
    // return categories
    Route:: get('categories', 'CategoriesController@index');
    // show
@@ -44,6 +47,10 @@ Route::group(['middleware'=>'cors','namespace'=>'Api'], function(){
    Route:: get('authors', 'AuthorsController@index');
    // show
    Route:: get('authors/{slug}', 'AuthorsController@show');
+
+   // Authentification
+   Route::post('register', 'RegisterController@create');
+   Route::get('test', 'RegisterController@test');
   
 
 });

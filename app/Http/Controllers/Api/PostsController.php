@@ -22,6 +22,13 @@ class PostsController extends Controller
         return new PostslistResource($posts);
     }
 
+    public function testpaginate(){
+        PostslistResource::withoutWrapping();
+        $posts=post::with('tags','categories','authors','likes','bookmark')->where("status","1")->paginate(5);
+       // $posts=post::with('tags','categories','authors','likes','bookmark')->where([["status", '=',"1"],["visible", '=',"0"],])->orderByDesc("posts.updated_at")->get();
+        return new PostslistResource($posts);
+    }
+
     public function animationPodcast(){
         PostslistResource::withoutWrapping();
         $posts=post::with('tags','categories','authors','likes','bookmark')->where([["status", '=',"1"],["animation", '=',"1"],["visible", '=',"0"],])->orderByDesc("posts.updated_at")->limit(1)->get();

@@ -36,24 +36,21 @@
             <i class="fa fa-times"></i></button>
         </div>
       </div>
-      <div class="box-body">
+      <div class="box-body" style="overflow-x: auto;">
         <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>S.No</th>
+                          <th>ID</th>
                           <th>Titre</th>
                           <th>Sous-Titre</th>
                           <th>Slug</th>
                           <th>Date de création</th>
                           @can('posts.update',Auth::user())
                           <th>Etat</th>
-                          <th>Modifier</th>
-                          @endcan
-                           @can('posts.delete', Auth::user())
-                          <th>supprimer</th>
+                          <th>Gestion</th>
                           @endcan
                         </tr>
                         </thead>
@@ -68,11 +65,10 @@
 
                             @can('posts.update',Auth::user())
                               <td><input data-id="{{ $post->id }}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $post->status ? 'checked' : '' }}></td>
-                              <td><a href="{{ route('post.edit',$post->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
+                              <td><a href="{{ route('post.edit',$post->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                             @endcan
 
                             @can('posts.delete', Auth::user())
-                            <td>
                               <form id="delete-form-{{ $post->id }}" method="post" action="{{ route('post.destroy',$post->id) }}" style="display: none">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}

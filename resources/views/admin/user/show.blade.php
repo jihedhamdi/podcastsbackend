@@ -11,11 +11,11 @@
   <section class="content-header">
     @include('admin.layouts.pagehead')
     <h1>
-    Liste des Admin
+    Liste des administrateurs
     </h1>
     <ol class="breadcrumb">
       <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Accueil</a></li>
-      <li><a href="{{ route('user.index') }}">Liste des Admins</a></li>
+      <li><a href="{{ route('user.index') }}">Liste des administrateurs</a></li>
     </ol>
   </section>
 
@@ -25,7 +25,6 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Admins</h3>
         <a class='col-lg-offset-5 btn btn-success' href="{{ route('user.create') }}">Ajouter un Admin </a>
         @include('includes.messages')
         <div class="box-tools pull-right">
@@ -35,19 +34,18 @@
             <i class="fa fa-times"></i></button>
         </div>
       </div>
-      <div class="box-body">
+      <div class="box-body" style="overflow-x: auto;">
         <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>S.No</th>
-                          <th>Admins Nom</th>
+                          <th>ID</th>
+                          <th>Utilisateur</th>
                           <th>Rôles attribués</th>
                           <th>Etat</th>
-                          <th>Modifier</th>
-                          <th>Supprimer</th>
+                          <th>Gestion</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,13 +54,17 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $user->name }}</td>
                             <td>
-                              @foreach ($user->roles as $role)
-                                {{ $role->name }},
-                              @endforeach
+                              @php
+                              foreach($user->roles as $role)
+                                 {
+                                  $roles.= $role->name.",";
+                                }
+                                $roles = rtrim($roles,",")
+                              @endphp
+                              {{ $roles }}
                             </td>
                             <td><input data-id="{{ $user->id }}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $user->status ? 'checked' : '' }}></td>
-                              <td><a href="{{ route('user.edit',$user->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                              <td>
+                              <td><a href="{{ route('user.edit',$user->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 <form id="delete-form-{{ $user->id }}" method="post" action="{{ route('user.destroy',$user->id) }}" style="display: none">
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}

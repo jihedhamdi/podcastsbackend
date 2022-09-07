@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Admin'],function(){
 	// Post Routes
 	Route::resource('admin/post','PostController');
 	Route::get('admin/post_Status', 'PostController@changeStatus');
+	Route::post('admin/post_Slug', 'PostController@generate_slug');
 	// Tag Routes
 	Route::resource('admin/tag','TagController');
 	// Category Routes

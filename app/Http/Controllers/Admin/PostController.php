@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 class PostController extends Controller
 {
@@ -59,6 +61,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function generate_slug(Request $request)
+    {
+        $slug = SlugService::createSlug(post::class, 'slug', $request->title, ['unique' => false,'maxLength' => 30]);
+        return ["slug" => $slug];
+    }
     public function store(Request $request)
     {
         $this->validate($request,[

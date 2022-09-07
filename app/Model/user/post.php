@@ -4,9 +4,19 @@ namespace App\Model\user;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class post extends Model
 {
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => ['title', 'id']
+            ]
+        ];
+    }
     public function tags()
     {
     	return $this->belongsToMany('App\Model\user\tag','post_tags')->withTimestamps();

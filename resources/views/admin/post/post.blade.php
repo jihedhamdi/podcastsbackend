@@ -36,24 +36,24 @@
                             <div class="box-body">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="title">Podcast Titre</label>
+                                        <label for="title">Titre</label>
                                         <input type="text" class="form-control" id="title" name="title"
                                             value="{{ old('title') }}" placeholder="Titre">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="subtitle">Podcast Sous-Titre</label>
+                                        <label for="subtitle">Sous-Titre</label>
                                         <input type="text" class="form-control" id="subtitle" name="subtitle"
                                             value="{{ old('subtitle') }}" placeholder="Sous-Titre">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="slug">Podcast Slug</label>
+                                        <label for="slug">Slug</label>
                                         <input type="text" class="form-control" id="slug" name="slug"
                                             value="{{ old('slug') }}" placeholder="Slug">
                                     </div>
                                     <div class="form-group">
-                                        <label for="slug">Podcast mp3 url</label>
+                                        <label for="slug">mp3 url</label>
                                         <input type="text" class="form-control" id="audio_link" name="audio_link"
                                             value="{{ old('audio_link') }}" placeholder="mp3 url">
                                     </div>
@@ -219,6 +219,24 @@
                 reader.readAsDataURL(this.files[0]);
 
             });
+
+            $('#title').keyup(function(e) {
+                e.preventDefault();
+        var title = $(this).val(); 
+ 
+         
+        $.ajax({
+
+            type: "POST",
+            dataType: "json",
+            url: '/admin/post_Slug',
+            data: {'title': title,'_token': "{{ csrf_token() }}"},
+            success: function(data){
+                console.log(data.slug)
+                $('#slug').val(data.slug);
+            }
+        });
+    })
 
         });
     </script>

@@ -35,7 +35,7 @@
               <div class="box-body">
               <div class="col-lg-offset-3 col-lg-6">
                 <div class="form-group">
-                  <label for="name">Admin Nom</label>
+                  <label for="name">Nom</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Admin Nom" value="@if (old('name')){{ old('name') }}@else{{ $user->name }}@endif">
                 </div>
 

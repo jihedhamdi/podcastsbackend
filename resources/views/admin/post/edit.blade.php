@@ -36,22 +36,22 @@
             <div class="box-body">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="title">Podcast Titre</label>
+                  <label for="title">Titre</label>
                   <input type="text" class="form-control" id="title" name="title" placeholder="Titre" value="{{ $post->title }}">
                 </div>
 
                 <div class="form-group">
-                  <label for="subtitle">Podcast Sous-Titre </label>
+                  <label for="subtitle">Sous-Titre </label>
                   <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sous Titre" value="{{ $post->subtitle }}">
                 </div>
 
                 <div class="form-group">
-                  <label for="slug">Podcast Slug</label>
+                  <label for="slug">Slug</label>
                   <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ $post->slug }}">
                 </div>
 
                 <div class="form-group">
-                  <label for="slug">Podcast mp3 url</label>
+                  <label for="slug">mp3 url</label>
                   <input type="text" class="form-control" id="audio_link" name="audio_link"  value="{{ $post->audio_link }}" placeholder="mp3 url">
                 </div>
 
@@ -184,7 +184,7 @@
 
              <div class="box-footer">
               <input type="submit" class="btn btn-primary" Value="Enregistrer">
-              <a href="{{ route('post.index') }}" class="btn btn-warning">Return</a>
+              <a href="{{ route('post.index') }}" class="btn btn-warning">Retour</a>
             </div>
           </form>
         </div>
@@ -235,6 +235,24 @@
       reader.readAsDataURL(this.files[0]); 
      
      });
+
+     $('#title').keyup(function(e) {
+                e.preventDefault();
+        var title = $(this).val(); 
+ 
+         
+        $.ajax({
+
+            type: "POST",
+            dataType: "json",
+            url: '/admin/post_Slug',
+            data: {'title': title,'_token': "{{ csrf_token() }}"},
+            success: function(data){
+                console.log(data.slug)
+                $('#slug').val(data.slug);
+            }
+        });
+    })
      
   });
    

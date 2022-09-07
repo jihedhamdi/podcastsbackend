@@ -33,7 +33,7 @@
 	            <div class="box-body">
 	            <div class="col-lg-offset-3 col-lg-6">
 	              <div class="form-group">
-	                <label for="name">Rôle Titre</label>
+	                <label for="name">Titre</label>
 	                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Titre">
 	              </div>
 				
@@ -49,7 +49,7 @@
 	              	@endforeach
 	              </div>
 	              <div class="col-lg-4">
-	              	<label for="name">utilisateur Authorisation</label>
+	              	<label for="name">Utilisateur Authorisation</label>
   	              	@foreach ($permissions as $permission)
   	              		@if ($permission->for == 'user')
   			              	<div class="checkbox">
