@@ -27,9 +27,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function sendPasswordResetNotification($token)
-{
-    $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
-}
 }
