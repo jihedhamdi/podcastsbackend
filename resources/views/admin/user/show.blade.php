@@ -43,6 +43,7 @@
                         <tr>
                           <th>ID</th>
                           <th>Utilisateur</th>
+                          <th>Email</th>
                           <th>Rôles attribués</th>
                           <th>Etat</th>
                           <th>Gestion</th>
@@ -53,6 +54,7 @@
                           <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
                             <td>
                               @php
                               foreach($user->roles as $role)

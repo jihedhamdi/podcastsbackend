@@ -110,7 +110,7 @@
                 <br>
                 <div class="form-group" style="display: flex;">
                   <div class="pull-right">
-                    <label for="image">Image</label>
+                    <label for="image">Image (405 * 304)</label>
                     <input type="file" name="image" id="image">
                     @if( $post->image)
                     <img id="preview-image-before-upload" src="{{asset('storage/posts/thumbs/300_'.$post->image.'.webp')}}" width="300px" height="300px"/>

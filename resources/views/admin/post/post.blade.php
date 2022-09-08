@@ -102,7 +102,7 @@
                                     <br>
                                     <div class="form-group" style="display: flex;">
                                         <div class="pull-left">
-                                            <label for="image">Image</label>
+                                            <label for="image">Image (405 * 304)</label>
                                             <input type="file" name="image" id="image" value="{{ old('image') }}">
                                             <img id="preview-image-before-upload" src="" alt="preview image"
                                             style="max-height: 250px;width: 250px;display: none;" />

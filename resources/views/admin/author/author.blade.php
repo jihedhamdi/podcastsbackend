@@ -55,9 +55,12 @@
 	              </div>
 
 				  <div class="form-group">
-	                <label for="slug">Description</label>
-	                <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" placeholder="Description">
-	              </div>
+					<label for="slug">Description</label>
+					<textarea name="description"
+						style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
+						id="editor1">{{ old('description') }}</textarea>
+				</div>
+
 
 				  <div class="form-group">
 	                <label for="name">Nom du métier </label>
@@ -77,14 +80,14 @@
 	                <input type="color" class="form-control" id="color" name="color" value="{{ old('color') }}" placeholder="Couleur"  style="width: 45px;">
 	              </div>
 				  <div class="form-group">
-                    <label for="image">Image</label>
+                    <label for="image">Image (144 * 144)</label>
 					<input type="file" name="image" id="image" value="{{ old('image') }}">
                   </div>
 				  <img id="preview-image-before-upload" src=""
                       alt="preview image"  style="max-height: 300px;width: 300px;display: none;">
 
 					<div class="form-group">
-					<label for="bgimage">Background Image</label>
+					<label for="bgimage">Background Image (1520 * 570)</label>
 					<input type="file" name="bgimage" id="bgimage" value="{{ old('bgimage') }}">
 					</div>
 					<img id="preview_bgimage" src=""
@@ -115,6 +118,14 @@
 
 @endsection
 @section('footerSection')
+<script src="{{ asset('admin/ckeditor/ckeditor.js') }}"></script>
+<script>
+	$(function() {
+		// Replace the <textarea id="editor1"> with a CKEditor
+		// instance, using default configuration.
+		CKEDITOR.replace('editor1');
+	});
+</script>
 <script type="text/javascript">
       
 	$(document).ready(function (e) {

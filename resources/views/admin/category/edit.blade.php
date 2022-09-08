@@ -51,7 +51,7 @@
 	                <input type="color" class="form-control" id="color" name="color" placeholder="Couleur" style="width: 45px;" value="{{ $category->color }}">
 	              </div>
 				  <div class="form-group">
-                    <label for="image">Image</label>
+                    <label for="image">Image (1520 * 475)</label>
                     <input type="file" name="image" id="image" value="{{ $category->image}}">
                   </div>
 			  @if( $category->image)

@@ -54,10 +54,13 @@
 	                <label for="slug">Slug</label>
 	                <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ $author->slug }}">
 	              </div>
-                  <div class="form-group">
-	                <label for="slug">Description</label>
-	                <input type="text" class="form-control" id="description" name="description" placeholder="description"  value="{{ $author->description }}">
-	              </div>
+
+				  <div class="form-group">
+					<label for="slug">Description</label>
+					<textarea name="description"
+						style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
+						id="editor1">{{ $author->description }}</textarea>
+				</div>
 
 				  <div class="form-group">
 	                <label for="name">Nom du métier </label>
@@ -82,7 +85,7 @@
 						<img id="preview-image-before-upload" src=""  style="max-height: 300px;width: 300px;display: none;"/>
 						@endif
 				  <div class="form-group">
-                    <label for="image">Image</label>
+                    <label for="image">Image (144 * 144)</label>
                     <input type="file" name="image" id="image" value="">
                   </div>
 				  @if( $author->bgimage)
@@ -91,7 +94,7 @@
 						<img id="preview_bgimage" src=""  style="max-height: 300px;width: 300px;display: none;"/>
 						@endif
 				  <div class="form-group">
-                    <label for="bgimage">Background image</label>
+                    <label for="bgimage">Background image (1520 * 570)</label>
                     <input type="file" name="bgimage" id="bgimage" value="">
                   </div>
 	            <div class="form-group">
@@ -118,6 +121,14 @@
 	<!-- /.content-wrapper -->
 @endsection
 @section('footerSection')
+<script src="{{ asset('admin/ckeditor/ckeditor.js') }}"></script>
+<script>
+	$(function() {
+		// Replace the <textarea id="editor1"> with a CKEditor
+		// instance, using default configuration.
+		CKEDITOR.replace('editor1');
+	});
+</script>
 <script type="text/javascript">
       
 	$(document).ready(function (e) {

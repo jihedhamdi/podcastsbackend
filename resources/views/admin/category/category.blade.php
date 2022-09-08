@@ -48,7 +48,7 @@
 	                <input type="color" class="form-control" id="color" name="color" value="{{ old('color') }}" placeholder="Couleur" style="width: 45px;">
 	              </div>
 				  <div class="form-group">
-                    <label for="image">Image</label>
+                    <label for="image">Image (1520 * 475)</label>
 					<input type="file" name="image" id="image" value="{{ old('image') }}">
                   </div>
 				  <img id="preview-image-before-upload" src=""
