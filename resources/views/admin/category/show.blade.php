@@ -32,21 +32,20 @@
             <i class="fa fa-times"></i></button>
         </div>
       </div>
-      <div class="box-body">
+      <div class="box-body" style="overflow-x: auto;">
         <div class="box">
 
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>S.No</th>
+                          <th>ID</th>
                           <th>Titre</th>
                           <th>Slug</th>
                           <th>Description</th>
                           <th>Couleur</th>
                           <th>Image</th>
-                          <th>Modifiers</th>
-                          <th>supprimer</th>
+                          <th>Gestion</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,10 +55,12 @@
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->slug }}</td>
                             <td>{{ $category->description }}</td>
-                            <td>{{ $category->color }}</td>
-                            <td>{{$category->image}}</td>
-                              <td><a href="{{ route('category.edit',$category->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                              <td>
+                            <td><div id="demobox" style="background-color: {{ $category->color }} ; padding: 10px; border: 1px solid">
+                              </div></td>
+                              <td>@if( $category->image)
+                                <img src="{{asset('storage/'.'/category/'.$category->image)}}" width="50px" height="50px"/>
+                              @endif</td>
+                              <td><a href="{{ route('category.edit',$category->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 <form id="delete-form-{{ $category->id }}" method="post" action="{{ route('category.destroy',$category->id) }}" style="display: none">
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}

@@ -31,36 +31,39 @@
 	            <div class="col-lg-offset-3 col-lg-6">
 
 					<div class="form-group">
-						<label for="name"> nom  </label>
+						<label for="name">Nom  </label>
 						<input type="text" class="form-control" id="last_name" name="last_name" value="{{ $author->last_name }}" placeholder="nom">
 					  </div>
 	
 					  <div class="form-group">
-						<label for="name"> prénom  </label>
+						<label for="name">Prénom  </label>
 						<input type="text" class="form-control" id="first_name" name="first_name" value="{{ $author->first_name }}" placeholder="pseudo">
 					  </div>
 					  
 	              <div class="form-group">
-	                <label for="name">pseudo</label>
+	                <label for="name">Pseudo</label>
 	                <input type="text" class="form-control" id="name" name="name" placeholder="pseudo " value="{{ $author->name }}">
 	              </div>
 
 				  <div class="form-group">
-	                <label for="name"> email  </label>
+	                <label for="name">Email  </label>
 	                <input type="text" class="form-control" id="email" name="email" value="{{ $author->email }}" placeholder="email">
 	              </div>
 
 	              <div class="form-group">
-	                <label for="slug"> Slug</label>
+	                <label for="slug">Slug</label>
 	                <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ $author->slug }}">
-	              </div>
-                  <div class="form-group">
-	                <label for="slug"> description</label>
-	                <input type="text" class="form-control" id="description" name="description" placeholder="description"  value="{{ $author->description }}">
 	              </div>
 
 				  <div class="form-group">
-	                <label for="name"> nom du métier </label>
+					<label for="slug">Description</label>
+					<textarea name="description"
+						style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
+						id="editor1">{{ $author->description }}</textarea>
+				</div>
+
+				  <div class="form-group">
+	                <label for="name">Nom du métier </label>
 	                <input type="text" class="form-control" id="job_name" name="job_name" value="{{ $author->job_name }}" placeholder="nom du métier">
 	              </div>
 
@@ -73,7 +76,7 @@
 					</div>
 
 				  <div class="form-group">
-	                <label for="slug"> Couleur</label>
+	                <label for="slug">Couleur</label>
 	                <input type="color" class="form-control" id="color" name="color" placeholder="Couleur" style="width: 45px;" value="{{ $author->color }}">
 	              </div>
 					@if( $author->image)
@@ -82,7 +85,7 @@
 						<img id="preview-image-before-upload" src=""  style="max-height: 300px;width: 300px;display: none;"/>
 						@endif
 				  <div class="form-group">
-                    <label for="image"> image</label>
+                    <label for="image">Image (144 * 144)</label>
                     <input type="file" name="image" id="image" value="">
                   </div>
 				  @if( $author->bgimage)
@@ -91,7 +94,7 @@
 						<img id="preview_bgimage" src=""  style="max-height: 300px;width: 300px;display: none;"/>
 						@endif
 				  <div class="form-group">
-                    <label for="bgimage">background image</label>
+                    <label for="bgimage">Background image (1520 * 570)</label>
                     <input type="file" name="bgimage" id="bgimage" value="">
                   </div>
 	            <div class="form-group">
@@ -118,6 +121,14 @@
 	<!-- /.content-wrapper -->
 @endsection
 @section('footerSection')
+<script src="{{ asset('admin/ckeditor/ckeditor.js') }}"></script>
+<script>
+	$(function() {
+		// Replace the <textarea id="editor1"> with a CKEditor
+		// instance, using default configuration.
+		CKEDITOR.replace('editor1');
+	});
+</script>
 <script type="text/javascript">
       
 	$(document).ready(function (e) {
