@@ -42,7 +42,7 @@
                           <th>ID</th>
                           <th>Nom et Prénom</th>
                           <th>Slug</th>
-                          <th>Description</th>
+                          <th>Email</th>
                           <th>Couleur</th>
                           <th>Image</th>
                           <th>Gestion</th>
@@ -54,7 +54,7 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $author->name }}</td>
                             <td>{{ $author->slug }}</td>
-                            <td>{{ $author->description }}</td>
+                            <td>{{ $author->email }}</td>
                             <td>{{ $author->color }}</td>
                             <td>@if( $author->image)
                                 <img src="{{asset('storage/'.'/author/'.$author->image)}}" width="50px" height="50px"/>

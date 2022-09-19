@@ -79,6 +79,24 @@
 	                <label for="slug">Couleur</label>
 	                <input type="color" class="form-control" id="color" name="color" placeholder="Couleur" style="width: 45px;" value="{{ $author->color }}">
 	              </div>
+				  <div class="form-group">
+	                <label for="name"> Lien Facebook </label>
+	                <input type="text" class="form-control" id="link_facebook" name="link_facebook" value="{{ $author->link_facebook }}" placeholder="lien facebook">
+	              </div>
+				  
+				  <div class="form-group">
+	                <label for="name"> Lien Twitter </label>
+	                <input type="text" class="form-control" id="link_twitter" name="link_twitter" value="{{  $author->link_twitter }}" placeholder="lien Twitter">
+	              </div>
+				  <div class="form-group">
+	                <label for="name"> Lien Youtube </label>
+	                <input type="text" class="form-control" id="link_youtube" name="link_youtube" value="{{  $author->link_youtube }}" placeholder="lien Youtube">
+	              </div>
+				  
+				  <div class="form-group">
+	                <label for="name"> Lien Instagram </label>
+	                <input type="text" class="form-control" id="link_Instagram" name="link_Instagram" value="{{  $author->link_Instagram }}" placeholder="lien Instagram">
+	              </div>
 					@if( $author->image)
 						<img id="preview-image-before-upload" src="{{asset('storage/'.'/author/'.$author->image)}}" width="300px" height="300px" />
 						@else
@@ -161,6 +179,24 @@
 				reader.readAsDataURL(this.files[0]); 
 			   
 			   });
+
+			   $('#name').keyup(function(e) {
+                e.preventDefault();
+        var title = $(this).val(); 
+ 
+         
+        $.ajax({
+
+            type: "POST",
+            dataType: "json",
+            url: '/admin/post_Slug',
+            data: {'title': title,'_token': "{{ csrf_token() }}"},
+            success: function(data){
+                console.log(data.slug)
+                $('#slug').val(data.slug);
+            }
+        });
+    })
 	   
 	});
 	 

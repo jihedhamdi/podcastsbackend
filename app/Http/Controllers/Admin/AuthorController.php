@@ -56,13 +56,13 @@ class AuthorController extends Controller
             'first_name' => 'required',
             'name' => 'required',
             'email' => 'required',
-            'job_name' => 'required',
-            'gender' => 'required',
             'slug' => 'required|unique:authors,slug|alpha_dash',
-            'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg',
             'bgimage' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg',
-            'color' => 'required'
+			'link_facebook' => 'url',
+			'link_twitter' => 'url',
+			'link_youtube' => 'url',
+			'link_Instagram' => 'url',
             ]);
             if ($request->hasFile('image')) {
                 $imageName   = time() .  $request->image->getClientOriginalName();
@@ -92,6 +92,10 @@ class AuthorController extends Controller
         $author->slug = $request->slug;
         $author->description = $request->description;
         $author->color = $request->color;
+		$author->link_facebook = $request->link_facebook;
+		$author->link_twitter = $request->link_twitter;
+		$author->link_youtube = $request->link_youtube;
+		$author->link_Instagram = $request->link_Instagram;
         $author->image = $imageName;
         $author->bgimage = $bgimageName;
         $author->save();
@@ -143,13 +147,13 @@ class AuthorController extends Controller
             'first_name' => 'required',
             'name' => 'required',
             'email' => 'required',
-            'job_name' => 'required',
-            'gender' => 'required',
             'slug' => 'required|unique:authors,slug,'.$id.'|alpha_dash',
-            'description' => 'required',
             $checkimagereq,
             $checkimagebgreq,
-            'color' => 'required',
+			'link_facebook' => 'url',
+			'link_twitter' => 'url',
+			'link_youtube' => 'url',
+			'link_Instagram' => 'url',
             ]);
             if ($request->hasFile('image')) {
                 $imageName   = time() .  $request->image->getClientOriginalName();
@@ -171,6 +175,10 @@ class AuthorController extends Controller
         $author->slug = $request->slug;
         $author->description = $request->description;
         $author->color = $request->color;
+		$author->link_facebook = $request->link_facebook;
+		$author->link_twitter = $request->link_twitter;
+		$author->link_youtube = $request->link_youtube;
+		$author->link_Instagram = $request->link_Instagram;
         if ($request->hasFile('image')) {
             $author->image = $imageName;
         }

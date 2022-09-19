@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use Validator;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Model\user\post;
-use App\Model\user\authors;
-use App\Http\Resources\Api\PostsResource;
-use App\Http\Resources\Api\PostslistResource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\PostsResource;
+use App\Http\Resources\Api\PostslistResource;
+use App\Model\user\post;
+use App\Model\user\like;
+use App\Model\user\bookmark;
+use App\Model\user\authors;
+
 
 class PostsController extends Controller
 {
@@ -71,25 +75,41 @@ class PostsController extends Controller
     {
         PostsResource::withoutWrapping();
         $post = post::with('tags','categories','authors','likes','bookmark')->where('slug',$slug)->first();
-        // $authors = authors::withCount('posts')->where('id',$post->authors[0]->id)->get();
-        // $authors = post::withCount([
-        //     'authors' => function (Builder $query) {
-        //         $query->where('authors_id', 2);
-        //     },
-        // ])->get();
-        // $authors = post::withCount(['authors'  => function (Builder $query) {
-        //     $query->where('id','like','2');
-        //  }])->get();
-        //  $authors = post::with(["authors" => function (Builder $query){
-            // $query->where('authors_posts.authors_id', '=', 2);
-            //$q->where('some other field', $someId);
-        // }]);
-        $authorscount = DB::table('authors_posts')
-        ->select(DB::raw('count(*) as count'))
-        ->where('authors_id',$post->authors[0]->id)
-        ->count();
-        $post->count_authors =  $authorscount;
+       // $authorscount = authors::withCount('posts_author')->where('slug',$slug)->first();
+       // $post->count_authors =  $authorscount->posts_author_count;
         return new PostsResource($post);
+    }
+
+    public function saveLike(request $request)
+    {
+    	$likecheck = like::where(['user_id'=>Auth::id(),'post_id'=>$request->id])->first();
+    	if ($likecheck) {
+    		like::where(['user_id'=>Auth::id(),'post_id'=>$request->id])->delete();
+    		return response()->json(['success'=>"like deleted"], 200);
+    	}else{
+	    	$like = new like;
+	    	$like->user_id = Auth::id();
+	    	$like->post_id = $request->id;
+	    	$like->save();
+
+            return response()->json(['success'=>"like saved"], 200);
+    	}
+    }
+
+    public function saveBookmark(request $request)
+    {
+    	$likecheck = bookmark::where(['user_id'=>Auth::id(),'post_id'=>$request->id])->first();
+    	if ($likecheck) {
+    		bookmark::where(['user_id'=>Auth::id(),'post_id'=>$request->id])->delete();
+    		return response()->json(['success'=>"Bookmark deleted"], 200);
+    	}else{
+	    	$like = new bookmark;
+	    	$like->user_id = Auth::id();
+	    	$like->post_id = $request->id;
+	    	$like->save();
+
+            return response()->json(['success'=>"Bookmark saved"], 200);
+    	}
     }
 
     
