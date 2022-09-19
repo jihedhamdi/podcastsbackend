@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Api\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Mail\VerifyEmail;
 use App\User;
+use App\VerifyUser;
+use Carbon\Carbon;
 use Validator;
 
 class PassportController extends Controller
@@ -33,7 +38,16 @@ class PassportController extends Controller
         
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
+            if (Auth::user()->email_verified_at == null) {
+                // Auth::logout();
+                $success['token'] =  $user->createToken('MyApp')->accessToken;
+                $success['name'] =  Auth::user()->name;
+                $success['Verified_email'] =  false;
+            return response()->json(['success' => $success], $this->successStatus);
+            }
             $success['token'] =  $user->createToken('MyApp')->accessToken;
+            $success['name'] =  Auth::user()->name;
+            $success['Verified_email'] =  true;
             return response()->json(['success' => $success], $this->successStatus);
         }
         else{
@@ -61,11 +75,64 @@ class PassportController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
+        VerifyUser::create([
+            'token' => Str::random(60),
+            'user_id' => $user->id,
+        ]);
+        Mail::to($user->email)->send(new VerifyEmail($user));
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
+        $success['Verified_email'] =  false;
 
-        return response()->json(['success'=>$success], $this->successStatus);
+        //return response()->json(['success'=>$success], $this->successStatus);
+        return response()->json(['success'=>'Compte created successfully please verify your email address first'], $this->successStatus);
     }
+
+    public function verifyEmail($token)
+    {
+        $verifiedUser = VerifyUser::where('token', $token)->first();
+        if (isset($verifiedUser)) {
+            $user = $verifiedUser->user;
+            if (!$user->email_verified_at) {
+                $user->email_verified_at = Carbon::now();
+                $user->save();
+                return response()->json(['success'=>'Your email has been verified'], $this->successStatus);
+                //return \redirect(route('user.login'))->with('success', 'Your email has been verified');
+            } else {
+                return response()->json(['error'=>'Your email has already been verified'], 201);
+                //return \redirect()->back()->with('info', 'Your email has already been verified');
+            }
+        } else {
+            return response()->json(['error'=>'Something went wrong!!'], 401);
+            //return \redirect(route('user.login'))->with('error', 'Something went wrong!!');
+        }
+    }
+
+    public function resend(Request $request)
+{
+
+    $user = User::where('email', $request->input('email'))->first();
+    if($user){
+    if($user->email_verified_at == null)
+    {
+    VerifyUser::create([
+        'token' => Str::random(60),
+        'user_id' => $user->id,
+    ]);
+    Mail::to($user->email)->send(new VerifyEmail($user));
+
+    return response()->json(['success'=>'mail sent successfully'], $this->successStatus);
+}
+    else
+    {
+        return response()->json(['success'=>'your account is already verified'], 201);
+    }
+}
+else{
+    return response()->json(['success'=>'your address email doesn\'t exist'], 401);
+
+}
+}
 
     /**
      * update api

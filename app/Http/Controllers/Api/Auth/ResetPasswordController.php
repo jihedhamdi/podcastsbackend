@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
+use Validator;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
@@ -39,11 +43,32 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    protected function resetPassword($user, $password)
+    protected function resetPassword(Request $request)
     {
-        $user->password = Hash::make($password);
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+     
+                $user->save();
+     
+                event(new PasswordReset($user));
+            }
+        );
+     
+        return $status === Password::PASSWORD_RESET
+                    ? response()->json(['message' => 'success','status' => $status],201)
+                    : response()->json(['message' => 'error','status' => $status],201);
+        /*$user->password = Hash::make($password);
         $user->save();
-        event(new ResetsPasswords($user));
+        event(new ResetsPasswords($user));*/
     }
     protected function sendResetResponse(Request $request, $response)
     {

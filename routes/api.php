@@ -47,17 +47,29 @@ Route::group(['middleware'=>'cors','namespace'=>'Api'], function(){
    Route:: get('authors', 'AuthorsController@index');
    // show
    Route:: get('authors/{slug}', 'AuthorsController@show');
+   
 
    // Authentification
    Route::post('login', 'Auth\PassportController@login');
    Route::post('register', 'Auth\PassportController@register');
    Route::post('forgetpassword', 'Auth\ForgotPasswordController');
+   Route::post('resetpassword', 'Auth\ResetPasswordController@resetPassword');
+   Route::post('resend', 'Auth\PassportController@resend');
+   Route::get('verify/{token}', 'Auth\PassportController@verifyEmail');
+   //Route::post('password/forgot-password', 'Auth\ForgotPasswordController@sendResetLinkResponse'); 
+   //Route::post('password/reset','Auth\ResetPasswordController@sendResetResponse'); 
 
    Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('getdetails', 'Auth\PassportController@getDetails');
    Route::post('updateuser', 'Auth\PassportController@updateuser');
    Route::post('changepassword', 'Auth\PassportController@changePassword');
    Route::get('logout', 'Auth\PassportController@logout');
+   
+
+   //save Like
+   Route::post('saveLike','PostsController@saveLike');
+   //save Bookmarks
+   Route::post('saveBookmark','PostsController@saveBookmark');
 });
 
    //Route::post('register', 'RegisterController@create');

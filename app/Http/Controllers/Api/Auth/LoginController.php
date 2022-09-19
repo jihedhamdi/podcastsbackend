@@ -33,16 +33,21 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
+        $credentials = [
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'is_verified' => 1,
+        ];
 
-        if ($this->attemptLogin($request)) {
+        if ($this->attemptLogin($credentials)) {
             $user = Auth::user();
-            $success['token'] = $user->createToken('MyApp')->accessToken;
-            $success['user'] = $user;
-            return response()->json($success, 200);
+            $response['token'] = $user->createToken('MyApp')->accessToken;
+            $response['user'] = $user;
+            return response()->json($response, 200);
         }
         else {
             $response = ["request" =>$request,"message" =>'User does not exist'];
-            return response($request, 422);
+            return response($response, 422);
         }
 
         //return $this->sendFailedLoginResponse($request);

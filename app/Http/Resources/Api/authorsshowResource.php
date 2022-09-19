@@ -28,6 +28,29 @@ class authorsshowResource extends Resource
         'href' => '/author/'.$this->slug,
         'desc' => $this->description,   
         'jobName' => $this->job_name, 
+        'socials' => [
+            ['id' => 'Facebook', 
+             'name' => 'Facebook', 
+             'icon' => 'lab la-facebook-square',
+             'href' => $this->link_facebook,
+            ],
+             [  'id' => 'Twitter', 
+                'name' => 'Twitter', 
+                'icon' => 'lab la-Twitter',
+                'href' => $this->link_twitter,
+            ],
+            [   'id' => 'Youtube', 
+                'name' => 'Youtube', 
+                'icon' => 'lab la-Youtube',
+                'href' => $this->link_youtube,
+                ]
+            ,
+            [   'id' => 'Instagram', 
+                'name' => 'Instagram', 
+                'icon' => 'lab la-Instagram',
+                'href' => $this->link_Instagram,
+            ]           
+            ],
         'podcasts' =>  $this->posts_author->map(function ($podcasts) {return PostsminilistResource::make(post::with('tags','categories','authors','likes','bookmark')->where('id',$podcasts->id)->first());}),
        
     ];
