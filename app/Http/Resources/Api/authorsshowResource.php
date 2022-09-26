@@ -36,20 +36,20 @@ class authorsshowResource extends Resource
             ],
              [  'id' => 'Twitter', 
                 'name' => 'Twitter', 
-                'icon' => 'lab la-Twitter',
+                'icon' => 'lab la-twitter',
                 'href' => $this->link_twitter,
             ],
             [   'id' => 'Youtube', 
                 'name' => 'Youtube', 
-                'icon' => 'lab la-Youtube',
+                'icon' => 'lab la-youtube',
                 'href' => $this->link_youtube,
                 ]
             ,
             [   'id' => 'Instagram', 
                 'name' => 'Instagram', 
-                'icon' => 'lab la-Instagram',
+                'icon' => 'lab la-instagram',
                 'href' => $this->link_Instagram,
-            ]           
+            ]        
             ],
         'podcasts' =>  $this->posts_author->map(function ($podcasts) {return PostsminilistResource::make(post::with('tags','categories','authors','likes','bookmark')->where('id',$podcasts->id)->first());}),
        
