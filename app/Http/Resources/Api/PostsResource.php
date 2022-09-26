@@ -24,7 +24,7 @@ class PostsResource extends Resource
         //    return parent::toArray($request);
         return [
             'id' => $this->id,
-            'featuredImage' => asset('storage/posts/thumbs/300_'.$this->image),
+            'featuredImage' => asset('storage/posts/thumbs/300_'.$this->image.'.webp'),
             'title' => $this->title,
             'desc' => $this->subtitle,
             'date' => $this->updated_at->format('M d, y'),

@@ -55,7 +55,7 @@ Route::group(['middleware'=>'cors','namespace'=>'Api'], function(){
    Route::post('forgetpassword', 'Auth\ForgotPasswordController');
    Route::post('resetpassword', 'Auth\ResetPasswordController@resetPassword');
    Route::post('resend', 'Auth\PassportController@resend');
-   Route::get('verify/{token}', 'Auth\PassportController@verifyEmail');
+   Route::post('verify/{token}', 'Auth\PassportController@verifyEmail');
    //Route::post('password/forgot-password', 'Auth\ForgotPasswordController@sendResetLinkResponse'); 
    //Route::post('password/reset','Auth\ResetPasswordController@sendResetResponse'); 
 

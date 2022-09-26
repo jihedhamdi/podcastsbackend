@@ -11,7 +11,7 @@
 <body>
     <h2>Welcome to Our Website, {{ $user->name }}</h2>
     <p>
-        Click <a href="{{ url('/api/verify/' .$user->verifyUser->token) }}">here</a> to verify your email.
+        Click <a href=" https://dev.podcastsante.fr/verify/{{$user->verifyUser->token }}">here</a> to verify your email.
     </p>
 </body>
 
