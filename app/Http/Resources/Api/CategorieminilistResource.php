@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Api;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategorieminilistResource extends Resource
+class CategorieminilistResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

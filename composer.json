@@ -5,29 +5,37 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
-        "barryvdh/laravel-cors": "0.11.2",
-        "cviebrock/eloquent-sluggable": "4.4.*",
-        "guzzlehttp/guzzle": "6.0",
-        "intervention/image": "^2.7",
-        "laravel/framework": "5.5.*",
-        "laravel/passport": "4.0.*",
-        "laravel/tinker": "~1.0",
-        "orangehill/iseed": "2.2",
-        "paragonie/random_compat": "2.*",
-        "tymon/jwt-auth": "^1.0"
+        "php": ">=7.3",
+        "cviebrock/eloquent-sluggable": "^8.0 ",
+        "fruitcake/laravel-cors": "^3.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.4",
+        "laravel/framework": "^8.0",
+        "laravel/passport": "^10.0",
+        "laravel/sanctum": "^2.15",
+        "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.4",
+        "orangehill/iseed": "^3.0",
+        "paragonie/random_compat": "^9.99",
+        "tymon/jwt-auth": "dev-develop",
+        "unisharp/laravel-filemanager": "^2.5"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7"
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^5.10",
+        "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
@@ -45,18 +53,16 @@
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize"
-        ],
-        "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan optimize"
         ]
     },
     "config": {
+        "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true,
         "allow-plugins": {
             "kylekatarnls/update-helper": true
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

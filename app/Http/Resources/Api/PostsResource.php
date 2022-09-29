@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources\Api;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use App\Model\user\like;
 use App\Model\user\bookmark;
 use App\Model\user\authors;
 use App\User;
 
-class PostsResource extends Resource
+class PostsResource extends JsonResource
 {
 
     /**

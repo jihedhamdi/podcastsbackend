@@ -36,15 +36,20 @@ Route::group(['namespace' => 'Admin'],function(){
 	Route::resource('admin/tag','TagController');
 	// Category Routes
 	Route::resource('admin/category','CategoryController');
-
+	// Author Routes
 	Route::resource('admin/authors','AuthorController');
+	//	Gestion Page Informative Routes
+	Route::resource('admin/gestion-page-informative','PageInformativeController');
 
 	// Gestion utilisateur Routes
 	Route::resource('admin/gestion-users','UsersController');
 	// Admin Auth Routes
 	Route::get('admin-login', 'Auth\LoginController@showLoginForm')->name('admin.login');
 	Route::post('admin-login', 'Auth\LoginController@login');
-
+	
+	Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
+		\UniSharp\LaravelFilemanager\Lfm::routes();
+	});
 	
 });
 

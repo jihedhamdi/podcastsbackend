@@ -43,7 +43,7 @@
 	              </div>
                   <div class="form-group">
 	                <label for="slug">Description</label>
-	                <input type="text" class="form-control" id="description" name="description" placeholder="Description"  value="{{ $category->description }}">
+	                <input type="text" class="form-control" id="editor1" name="description" placeholder="Description"  value="{{ $category->description }}">
 	              </div>
 
 				  <div class="form-group">

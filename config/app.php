@@ -163,12 +163,18 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
+		Fruitcake\Cors\CorsServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
+        
+		
+		
 
         /*
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
 
 
         /*
@@ -231,6 +237,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'cors' => \Fruitcake\Cors\HandleCors::class,
 
     ],
 

@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources\Api;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use App\Model\user\category;
 
-class PostsminilistResource extends Resource
+class PostsminilistResource extends JsonResource
 {
     public function boot()
 {
-    Resource::withoutWrapping();
+    JsonResource::withoutWrapping();
 }
     /**
      * Transform the resource into an array.
@@ -26,7 +26,7 @@ class PostsminilistResource extends Resource
         //    return parent::toArray($request);
         return [
             'index' => $this->id,
-            'id' => encrypt($this->id),
+            'id' => $this->id,
             'featuredImage' => asset('storage/posts/thumbs/300_'.$this->image.'.webp'),
             'title' => $this->title,
             'desc' => $this->subtitle,
