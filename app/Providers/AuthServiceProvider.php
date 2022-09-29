@@ -16,18 +16,26 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
-
+	
     /**
      * Register any authentication / authorization services.
      *
      * @return void
      */
+    
     public function boot()
     {
         $this->registerPolicies();
+        // Passport::routes();
+        // Gate::resource('posts', 'App\Policies\PostPolicy'); 
+        // Gate::define('posts.tag', 'App\Policies\PostPolicy@tag'); 
+        // Gate::define('posts.category', 'App\Policies\PostPolicy@category');    
         Passport::routes();
-        Gate::resource('posts', 'App\Policies\PostPolicy'); 
+        // Passport::personalAccessClientId(1);
+		Gate::resource('posts', 'App\Policies\PostPolicy'); 
         Gate::define('posts.tag', 'App\Policies\PostPolicy@tag'); 
         Gate::define('posts.category', 'App\Policies\PostPolicy@category'); 
+    
     }
+
 }

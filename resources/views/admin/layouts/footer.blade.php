@@ -36,6 +36,23 @@
     {{-- <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script> --}}
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
+    <script src="{{ asset('admin/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('admin/ckeditor/adapters/jquery.js') }}"></script>
+    {{-- <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script> --}}
     @section('footerSection')
     @show
   </footer>
+
+  <script>
+      var options = {
+  filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+  filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+  filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+  filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+};
+      $(function() {
+          // Replace the <textarea id="editor1"> with a CKEditor
+          // instance, using default configuration.
+          CKEDITOR.replace('editor1', options);
+      });
+  </script>

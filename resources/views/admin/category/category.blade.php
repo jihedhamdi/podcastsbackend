@@ -40,7 +40,7 @@
 
 				  <div class="form-group">
 	                <label for="slug">Description</label>
-	                <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" placeholder="Description">
+	                <input type="text" class="form-control" id="editor1" name="description" value="{{ old('description') }}" placeholder="Description">
 	              </div>
 
 				  <div class="form-group">

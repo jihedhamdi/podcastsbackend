@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Api;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use App\Model\user\post;
 
-class tagsshowResource extends Resource
+class tagsshowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
