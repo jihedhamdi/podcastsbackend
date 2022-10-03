@@ -15,13 +15,11 @@ use App\Model\user\like;
 use App\Model\user\bookmark;
 use App\Model\user\authors;
 
-
 class PostsController extends Controller
 {
     
     public function index(){
         PostslistResource::withoutWrapping();
-        //$posts=post::with('tags','categories','authors','likes','bookmark')->where("status","1")->paginate(5);
         $posts=post::with('tags','categories','authors','likes','bookmark')->where([["status", '=',"1"],["visible", '=',"0"],])->orderByDesc("posts.updated_at")->get();
         return new PostslistResource($posts);
     }
@@ -39,6 +37,24 @@ class PostsController extends Controller
         return new PostslistResource($posts);
     }
 
+    public function multishow(Request $request){
+        $validator = Validator::make($request->all(), [
+            'multitags' => 'required|array|min:1',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);            
+        }
+        $tags_array = $request->multitags;
+        PostslistResource::withoutWrapping();
+        $posts=post::with('tags','categories','authors','likes','bookmark')->where("status","1",["visible", '=',"0"])->whereHas('tags', function($query) use ($tags_array)
+        {
+            $query->whereIn('tags.id',$tags_array);
+        
+        })->orderByDesc("posts.updated_at")->paginate(5);
+    
+        return new PostslistResource($posts);
+    }
+
   
 
     public function search(Request $request,$keywords){
@@ -52,9 +68,7 @@ class PostsController extends Controller
             if ($validator->fails()) {
                 return ["Error" => "Check input"];
             }    
-       // $keywords = $request->keywords;
         PostslistResource::withoutWrapping();
-        //$posts=post::with('tags','categories','authors','likes','bookmark')->where("status","1")->paginate(5);
         $posts=post::with('tags','categories','authors','likes','bookmark')->where(function($query) use ($keywords) {
             $query->where([['posts.title', 'LIKE', "%{$keywords}%"],])
                   ->orWhere([["posts.subtitle", 'LIKE',"%{$keywords}%"],])
@@ -62,7 +76,7 @@ class PostsController extends Controller
                   ->orWhere([["posts.body", 'LIKE',"%{$keywords}%"],])
                   ->orWhere([["posts.updated_at", 'LIKE',"%{$keywords}%"],]);
                 })
-       ->where([["posts.status", '=',"1"],["posts.visible", '=',"0"],])->orderByDesc("posts.updated_at")->get();
+       ->where([["posts.status", '=',"1"],["posts.visible", '=',"0"],])->orderByDesc("posts.updated_at")->paginate(5);
         return new PostslistResource($posts);
     }
          /**

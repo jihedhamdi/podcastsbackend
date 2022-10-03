@@ -189,7 +189,7 @@
           </form>
         </div>
         <!-- /.box -->
-
+        <x-comments :model="$post->id"/>
         
       </div>
       <!-- /.col-->

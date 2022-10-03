@@ -4,6 +4,10 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Model\user\category;
+use Illuminate\Support\Facades\Auth;
+use App\Model\user\like;
+use App\Model\user\bookmark;
+use App\User;
 
 class PostsminilistResource extends JsonResource
 {
@@ -36,10 +40,10 @@ class PostsminilistResource extends JsonResource
             'viewdCount' => 0,
             'readingTime' => 0,
             'bookmark' => ['count' => $this->bookmark->count(),
-            'isBookmarked' => false,
+            'isBookmarked' => $this->checkisbookmarked($this->id),
              ],
             'like' => ['count' => $this->likes->count(),
-             'isLiked' => false,
+            'isLiked' => $this->checkislike($this->id),
             ],
             'authorId' => $this->authors[0]->id,
             'categoriesId' => $this->categories->map(function ($categories) {return $categories->id;}),
@@ -48,5 +52,36 @@ class PostsminilistResource extends JsonResource
             'audioUrl' => $this->audio_link,
             
         ];
+    }
+    private function checkislike($id)
+    {
+        if (auth('api')->check())
+        {
+            $iduser = auth('api')->id();
+        }else{
+	    	return false;
+    	}
+        $likecheck = like::where(['user_id'=> $iduser,'post_id'=>$id])->first();
+    	if ($likecheck) {
+    		return true;
+    	}else{
+	    	return false;
+    	}
+    }
+    private function checkisbookmarked($id)
+    {
+        if (auth('api')->check())
+        {
+            $iduser = auth('api')->id();
+        }else{
+	    	return false;
+    	}
+
+        $bookmarkecheck = bookmark::where(['user_id'=> $iduser,'post_id'=>$id])->first();
+    	if ($bookmarkecheck) {
+    		return true;
+    	}else{
+	    	return false;
+    	}
     }
 }

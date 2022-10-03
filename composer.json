@@ -17,6 +17,7 @@
         "laravel/ui": "^3.4",
         "orangehill/iseed": "^3.0",
         "paragonie/random_compat": "^9.99",
+        "tizis/lara-comments": "^4.0",
         "tymon/jwt-auth": "dev-develop",
         "unisharp/laravel-filemanager": "^2.5"
     },

@@ -4,7 +4,7 @@
 /storage/*.key
 /vendor
 /vendor_old
-/composer_old
+/composer_old.json
 /.idea
 /.vagrant
 Homestead.json

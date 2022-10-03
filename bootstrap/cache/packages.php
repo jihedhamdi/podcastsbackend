@@ -70,6 +70,17 @@
       0 => 'Laravel\\Ui\\UiServiceProvider',
     ),
   ),
+  'mews/purifier' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Mews\\Purifier\\PurifierServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Purifier' => 'Mews\\Purifier\\Facades\\Purifier',
+    ),
+  ),
   'nesbot/carbon' => 
   array (
     'providers' => 
@@ -89,6 +100,14 @@
     'providers' => 
     array (
       0 => 'Orangehill\\Iseed\\IseedServiceProvider',
+    ),
+  ),
+  'tizis/lara-comments' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'tizis\\laraComments\\Providers\\ServiceProvider',
+      1 => 'tizis\\laraComments\\Providers\\AuthServiceProvider',
     ),
   ),
   'tymon/jwt-auth' => 
