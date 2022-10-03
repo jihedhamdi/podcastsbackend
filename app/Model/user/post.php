@@ -5,10 +5,13 @@ namespace App\Model\user;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use tizis\laraComments\Contracts\ICommentable;
+use tizis\laraComments\Traits\Commentable;
 
-class post extends Model
+class post extends Model implements ICommentable
 {
-
+    use Commentable;
+    
     public function sluggable(): array
     {
         return [

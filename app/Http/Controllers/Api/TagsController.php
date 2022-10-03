@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\user\tag;
 use App\Http\Resources\Api\TagsResource;
 use App\Http\Resources\Api\tagsshowResource;
+
+
 
 class TagsController extends Controller
 {
@@ -21,4 +22,5 @@ class TagsController extends Controller
         $tag=tag::with('tags_posts')->where('slug',$slug)->first();
         return new tagsshowResource($tag);
     }
+
 }
