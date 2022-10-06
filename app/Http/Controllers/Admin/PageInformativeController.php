@@ -43,9 +43,9 @@ class PageInformativeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'titre' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'contenu' => 'required|string|max:255',
+            'titre' => 'required|max:255',
+            'slug' => 'required|max:255',
+            'contenu' => 'required',
         ]);
         $pageinformative = new PageInformative;
         $pageinformative->titre = $request->titre;
@@ -90,9 +90,9 @@ class PageInformativeController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'titre' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'contenu' => 'required|string|max:255',
+            'titre' => 'required|max:255',
+            'slug' => 'required|max:255',
+            'contenu' => 'required',
         ]);
         
         $pageinformative = PageInformative::find($id);

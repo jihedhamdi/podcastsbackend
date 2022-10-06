@@ -17,7 +17,7 @@ class CreatePageInformativesTable extends Migration
             $table->increments('id');
             $table->string('titre');
             $table->string('slug');
-            $table->string('contenu');
+            $table->text('contenu');
             $table->timestamps();
         });
     }

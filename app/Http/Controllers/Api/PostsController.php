@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use tizis\laraComments\UseCases\CommentService;
+use tizis\laraComments\Http\Resources\CommentResource;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\PostsResource;
 use App\Http\Resources\Api\PostslistResource;
@@ -89,8 +91,25 @@ class PostsController extends Controller
     {
         PostsResource::withoutWrapping();
         $post = post::with('tags','categories','authors','likes','bookmark')->where('slug',$slug)->first();
-       // $authorscount = authors::withCount('posts_author')->where('slug',$slug)->first();
-       // $post->count_authors =  $authorscount->posts_author_count;
+
+        $commentable_encrypted_key = $post->getEncryptedKey();
+       
+        $decryptedModelData = decrypt($commentable_encrypted_key);
+
+        $modelId = $decryptedModelData['id'];
+        $modelPath = $decryptedModelData['type'];
+
+        //$orderBy = CommentService::orderByRequestAdapter($request);
+        if (!CommentService::modelIsExists($modelPath)) {
+            throw new \DomainException('Model don\'t exists');
+        }
+
+        if (!CommentService::isCommentable(new $modelPath)) {
+            throw new \DomainException('Model is\'t commentable');
+        }
+        $model = $modelPath::where('id', $modelId)->first();
+        
+        $post->comments_model = $model;
         return new PostsResource($post);
     }
 

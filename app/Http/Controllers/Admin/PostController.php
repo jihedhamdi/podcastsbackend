@@ -63,7 +63,7 @@ class PostController extends Controller
      */
     public function generate_slug(Request $request)
     {
-        $slug = SlugService::createSlug(post::class, 'slug', $request->title, ['unique' => false,'maxLength' => 30]);
+        $slug = SlugService::createSlug(post::class, 'slug', $request->title, ['unique' => false,'maxLength' => 150]);
         return ["slug" => $slug];
     }
     public function store(Request $request)

@@ -10,7 +10,7 @@ use tizis\laraComments\Traits\Commentable;
 
 class post extends Model implements ICommentable
 {
-    use Commentable;
+    use Commentable;use Sluggable;
     
     public function sluggable(): array
     {

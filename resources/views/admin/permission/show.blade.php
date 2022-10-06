@@ -24,7 +24,7 @@
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">Authorisations</h3>
-        <a class='col-lg-offset-5 btn btn-success' href="{{ route('permission.create') }}">Ajou une Authorisations</a>
+        <a class='col-lg-offset-5 btn btn-success' href="{{ route('permission.create') }}">Ajouter une Authorisations</a>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fa fa-minus"></i></button>
