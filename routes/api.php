@@ -45,13 +45,18 @@ Route::group(['middleware' => 'cors', 'namespace' => 'Api'], function () {
    // show
    Route::get('tags/{slug}', 'TagsController@show');
 
-   // show
+   // show multi tags
    Route::post('multitags', 'PostsController@multishow');
 
    // return authors
    Route::get('authors', 'AuthorsController@index');
    // show
    Route::get('authors/{slug}', 'AuthorsController@show');
+
+    // return informative
+    Route::get('informative', 'InformativeController@index');
+    // show
+    Route::get('informative/{slug}', 'InformativeController@show');
 
 
    // Authentification

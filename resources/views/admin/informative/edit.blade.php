@@ -43,7 +43,7 @@
 	              </div>
                   <div class="form-group">
 	                <label for="contenu">Contenu</label>
-                    <textarea name="contenu" id="editor1"  class="form-control" cols="30"  rows="10"  value="{{ $pageinformative->contenu }}" placeholder="Contenu"></textarea>
+                    <textarea name="contenu" id="editor1"  class="form-control" cols="30"  rows="10"   placeholder="Contenu">{{ $pageinformative->contenu }}</textarea>
 	              </div>
 
 				
@@ -75,22 +75,8 @@
       
 	$(document).ready(function (e) {
 	 
-	   
-	   $('#image').change(function(){
-				
-		let reader = new FileReader();
-	 
-		reader.onload = (e) => { 
-	 
-		  $('#preview-image-before-upload').attr('src', e.target.result); 
-		  $('#preview-image-before-upload').css('display', "block");
-		}
-	 
-		reader.readAsDataURL(this.files[0]); 
-	   
-	   });
 
-	   $('#name').keyup(function(e) {
+	   $('#titre').keyup(function(e) {
                 e.preventDefault();
         var title = $(this).val(); 
  

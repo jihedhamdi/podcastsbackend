@@ -8,6 +8,7 @@ use App\Model\user\like;
 use App\Model\user\bookmark;
 use App\Model\user\authors;
 use App\User;
+use tizis\laraComments\Http\Resources\CommentResource;
 
 class PostsResource extends JsonResource
 {
@@ -68,7 +69,7 @@ class PostsResource extends JsonResource
                 'taxonomy' => "tags"                
             ];}),
             'content' => $this->body,
-            'comments' => []
+            'comments' => $this->getarticlecomments($this->comments_model)
         ];
     }
 
@@ -108,6 +109,17 @@ class PostsResource extends JsonResource
     {
         $authorscount = authors::withCount('posts_author')->where('authors.id',$id)->first();
         return $authorscount->posts_author_count;
+
+    }
+    private function getarticlecomments($model)
+    {
+        CommentResource::withoutWrapping();
+        return  CommentResource::collection(
+            $model->commentsWithChildrenAndCommenter()
+                ->parentless()
+                ->orderBy("created_at", "desc")
+                ->get()
+        );
 
     }
 }

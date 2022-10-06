@@ -75,7 +75,7 @@
       
 	$(document).ready(function (e) {
 	 
-		$('#name').keyup(function(e) {
+		$('#titre').keyup(function(e) {
                 e.preventDefault();
         var title = $(this).val(); 
  
@@ -93,19 +93,6 @@
         });
     })
 	
-	   $('#image').change(function(){
-				
-		let reader = new FileReader();
-	 
-		reader.onload = (e) => { 
-	 
-		  $('#preview-image-before-upload').attr('src', e.target.result); 
-		  $('#preview-image-before-upload').css('display', "block");
-		}
-	 
-		reader.readAsDataURL(this.files[0]); 
-	   
-	   });
 	   
 	});
 	 

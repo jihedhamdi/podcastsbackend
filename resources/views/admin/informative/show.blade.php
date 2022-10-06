@@ -42,7 +42,6 @@
                           <th>ID</th>
                           <th>Titre</th>
                           <th>Slug</th>
-                          <th>Contenu</th>
                           <th>Gestion</th>
                         </tr>
                         </thead>
@@ -52,7 +51,6 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $pageinformative->titre }}</td>
                             <td>{{ $pageinformative->slug }}</td>
-                            <td>{{ $pageinformative->contenu }}</td>
                               <td><a href="{{ route('gestion-page-informative.edit',$pageinformative->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 <form id="delete-form-{{ $pageinformative->id }}" method="post" action="{{ route('gestion-page-informative.destroy',$pageinformative->id) }}" style="display: none">
                                   {{ csrf_field() }}
