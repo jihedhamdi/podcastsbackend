@@ -17,10 +17,22 @@ class CategorieminilistResource extends JsonResource
         return ['id' => $this->id,
         'name' => $this->name,
         'href' => '/categories/'.$this->slug,
-        'thumbnail' => asset('storage/category/'.$this->image),
+        'thumbnail' => $this->getresizedimage($this->image,"category","48x48_"),
         'count' =>  $this->posts_category_count,
         'color' => $this->color,
         'taxonomy' => "category"                
     ];
+    }
+    private function getresizedimage($imagename,$directory,$dimension)
+    {
+        if ($imagename != "")
+        {
+            $info = pathinfo($imagename);
+            $resizedimagename = asset('storage/'.$directory.'/thumbs/'.$dimension.basename($imagename,'.'.$info['extension']).'.webp');
+            return $resizedimagename;
+        }else{
+	    	return "";
+    	}
+
     }
 }

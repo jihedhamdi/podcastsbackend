@@ -37,22 +37,22 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   <label for="title">Titre</label>
-                  <input type="text" class="form-control" id="title" name="title" placeholder="Titre" value="{{ $post->title }}">
+                  <input type="text" class="form-control" id="title" name="title" placeholder="Titre" value="{{ old('title')?? $post->title }}">
                 </div>
 
                 <div class="form-group">
                   <label for="subtitle">Sous-Titre </label>
-                  <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sous Titre" value="{{ $post->subtitle }}">
+                  <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sous Titre" value="{{ old('subtitle')?? $post->subtitle }}">
                 </div>
 
                 <div class="form-group">
                   <label for="slug">Slug</label>
-                  <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ $post->slug }}">
+                  <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ old('slug')?? $post->slug }}">
                 </div>
 
                 <div class="form-group">
                   <label for="slug">mp3 url</label>
-                  <input type="text" class="form-control" id="audio_link" name="audio_link"  value="{{ $post->audio_link }}" placeholder="mp3 url">
+                  <input type="text" class="form-control" id="audio_link" name="audio_link"  value="{{ old('audio_link')?? $post->audio_link }}" placeholder="mp3 url">
                 </div>
 
                 <div class="form-group">
@@ -103,7 +103,10 @@
                       </div>
                   </div>
               </div>
-                
+              <div class="form-group">
+                <label for="publishdate">Date de Publication</label>
+                <input type="datetime-local" class="form-control" name ="publish_date" id="publish_date" value ="{{ old('publish_date')?? $post->publish_date }}" >
+            </div>
               </div>
              
               <div class="col-lg-6">
@@ -178,7 +181,7 @@
                </div>
                <!-- /.box-header -->
                <div class="box-body pad">
-                <textarea name="body" style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" id="editor1">{{ $post->body }}</textarea>
+                <textarea name="body" style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" id="editor1">{{old('body')?? $post->body }}</textarea>
               </div>
              </div>
 
@@ -189,7 +192,6 @@
           </form>
         </div>
         <!-- /.box -->
-        <x-comments :model="$post->id"/>
         
       </div>
       <!-- /.col-->

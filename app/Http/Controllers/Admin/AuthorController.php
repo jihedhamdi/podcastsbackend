@@ -7,6 +7,7 @@ use App\Model\user\authors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 use phpDocumentor\Reflection\DocBlock\Tags\Author;
 
 class AuthorController extends Controller
@@ -19,7 +20,7 @@ class AuthorController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->middleware('can:posts.category');
+        $this->middleware('can:posts.auteur');
     }
     /**
      * Display a listing of the resource.
@@ -67,20 +68,27 @@ class AuthorController extends Controller
             if ($request->hasFile('image')) {
                 $imageName   = time() .  $request->image->getClientOriginalName();
                 Storage::disk('public')->put( "author/".$imageName, File::get($request->image));
+                $info = pathinfo($imageName);
+                $path = "storage/author/thumbs/144x144_".basename($imageName,'.'.$info['extension']).'.webp'; 
+                $image_resize = Image::make($request->image->getRealPath());
+                $image_resize->encode('webp', 90);                  
+                $image_resize->resize(144, 144);
+                $image_resize->save($path);
                 // $imageName = $request->image->store('posts');
-             }
-            else{
-                 return 'No';
              }
 
              if ($request->hasFile('bgimage')) {
                 $bgimageName   = 'bg_'.time() .  $request->bgimage->getClientOriginalName();
                 Storage::disk('public')->put( "author/bg/".$bgimageName, File::get($request->bgimage));
+                $info = pathinfo($bgimageName);
                 // $imageName = $request->image->store('posts');
+                $path = "storage/author/bg/thumbs/1520x570_".basename($bgimageName,'.'.$info['extension']).'.webp'; 
+                $image_resize = Image::make($request->bgimage->getRealPath());
+                $image_resize->encode('webp', 90);                  
+                $image_resize->resize(1520, 570);
+                $image_resize->save($path);
              }
-            else{
-                 return 'No';
-             }
+            
 
         $author = new authors;
         $author->first_name = $request->first_name;
@@ -135,6 +143,8 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $checkimagereq ="";
+        $checkimagebgreq ="";
         if ($request->hasFile('image')) {
             $checkimagereq ="'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg'";
             }
@@ -158,11 +168,29 @@ class AuthorController extends Controller
             if ($request->hasFile('image')) {
                 $imageName   = time() .  $request->image->getClientOriginalName();
                 Storage::disk('public')->put( "author/".$imageName, File::get($request->image));
+                $info = pathinfo($imageName);
+                $path = "storage/author/thumbs/144x144_".basename($imageName,'.'.$info['extension']).'.webp'; 
+                $image_resize = Image::make($request->image->getRealPath());
+                $image_resize->encode('webp', 90);                  
+                $image_resize->resize(144, 144);
+                $image_resize->save($path);
             }
 
             if ($request->hasFile('bgimage')) {
                 $bgimageName   = 'bg_'.time() .  $request->bgimage->getClientOriginalName();
                 Storage::disk('public')->put( "author/bg/".$bgimageName, File::get($request->bgimage));
+                $info = pathinfo($bgimageName);
+                $path = "storage/author/bg/thumbs/1520x570_".basename($bgimageName,'.'.$info['extension']).'.webp'; 
+                $image_resize = Image::make($request->bgimage->getRealPath());
+                $image_resize->encode('webp', 90);                  
+                $image_resize->resize(1520, 570);
+                $image_resize->save($path);
+
+                $path2 = "storage/author/bg/thumbs/228x196_".basename($bgimageName,'.'.$info['extension']).'.webp'; 
+                $image_resize2 = Image::make($request->bgimage->getRealPath());
+                $image_resize2->encode('webp', 90);                  
+                $image_resize2->resize(228, 196);
+                $image_resize2->save($path2);
 
              }
         $author = authors::find($id);

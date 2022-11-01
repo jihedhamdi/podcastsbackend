@@ -20,12 +20,25 @@ class AuthorsminilistResource extends JsonResource
         'displayName' => $this->name,
         'email' => $this->email,
         'gender' => $this->gender,
-        'avatar' => asset('storage/author/'.$this->image),
-        'bgImage' => asset('storage/author/bg/'.$this->bgimage),
+        'avatar' => $this->getresizedimage($this->image,"author","144x144_"),
+        'bgImage' => $this->getresizedimage($this->bgimage,"author/bg","228x196_"),
         'count' =>  $this->posts_author_count,
         'href' => '/author/'.$this->slug,
         'desc' => $this->description,   
         'jobName' => $this->job_name,        
     ];
+    }
+
+    private function getresizedimage($imagename,$directory,$dimension)
+    {
+        if ($imagename != "")
+        {
+            $info = pathinfo($imagename);
+            $resizedimagename = asset('storage/'.$directory.'/thumbs/'.$dimension.basename($imagename,'.'.$info['extension']).'.webp');
+            return $resizedimagename;
+        }else{
+	    	return "";
+    	}
+
     }
 }

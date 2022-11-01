@@ -41,9 +41,10 @@
 	                <label for="slug">Slug</label>
 	                <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{ $category->slug }}">
 	              </div>
-                  <div class="form-group">
+      
+				  <div class="form-group">
 	                <label for="slug">Description</label>
-	                <input type="text" class="form-control" id="editor1" name="description" placeholder="Description"  value="{{ $category->description }}">
+	                <textarea id="editor1" name="description"  placeholder="Description">{{ $category->description }}</textarea>
 	              </div>
 
 				  <div class="form-group">
@@ -55,7 +56,7 @@
                     <input type="file" name="image" id="image" value="{{ $category->image}}">
                   </div>
 			  @if( $category->image)
-                    <img id="preview-image-before-upload" src="{{asset('storage/category'.$category->image.'.webp')}}" width="300px" height="300px"/>
+                    <img id="preview-image-before-upload" src="{{asset('storage/category/'.$category->image)}}" width="300px" height="300px"/>
                   @else
                   <img id="preview-image-before-upload" src=""   style="max-height: 300px;width: 300px;display: none;" />
                   @endif

@@ -15,16 +15,21 @@
             @can('posts.tag',Auth::user())
             <li class=""><a href="{{ route('tag.index') }}"><i class="fa fa-circle-o"></i> Mots clés</a></li>
             @endcan
-            @can('posts.tag',Auth::user())
+            @can('posts.client',Auth::user())
             <li class=""><a href="{{ route('gestion-users.index') }}"><i class="fa fa-circle-o"></i> Gestion Utilisateurs Client</a></li>
             @endcan
-            @can('posts.tag',Auth::user())
+            @can('posts.page_informative',Auth::user())
             <li class=""><a href="{{ route('gestion-page-informative.index') }}"><i class="fa fa-circle-o"></i> Gestion Page Informative</a></li>
             @endcan
             <li class=""><a href="{{ route('user.index') }}"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
             <li class=""><a href="{{ route('role.index') }}"><i class="fa fa-circle-o"></i> Les rôles</a></li>
             <li class=""><a href="{{ route('permission.index') }}"><i class="fa fa-circle-o"></i> Autorisations</a></li>
+            @can('posts.auteur',Auth::user())
             <li class=""><a href="{{ route('authors.index') }}"><i class="fa fa-circle-o"></i> Auteurs</a></li>
+            @endcan
+            @can('posts.comments',Auth::user())
+            <li class=""><a href="{{ route('comments.index') }}"><i class="fa fa-circle-o"></i> Gestion des commentaires</a></li>
+            @endcan
         </li>
         
         

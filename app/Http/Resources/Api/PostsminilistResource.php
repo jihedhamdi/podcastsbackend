@@ -27,25 +27,26 @@ class PostsminilistResource extends JsonResource
     }*/
     public function toArray($request)
     {
+ 
         //    return parent::toArray($request);
         return [
             'index' => $this->id,
             'id' => $this->id,
-            'featuredImage' => asset('storage/posts/thumbs/300_'.$this->image.'.webp'),
+            'featuredImage' => $this->getresizedimage($this->image,"posts","300_"),
             'title' => $this->title,
             'desc' => $this->subtitle,
-            'date' => $this->updated_at->format('M d, y'),
+            'date' => optional($this->publish_date)->format('M d, y'),
             'href' => '/podcasts/'.$this->slug,
-            'commentCount' => 0,
-            'viewdCount' => 0,
+            'commentCount' => $this->commentsWithChildrenAndCommenter()->where("Approuve",0)->orWhereNull('Approuve')->count(),
+            'viewdCount' => $this->post_view_count,
             'readingTime' => 0,
-            'bookmark' => ['count' => $this->bookmark->count(),
+            'bookmark' => ['count' => $this->bookmark_count,
             'isBookmarked' => $this->checkisbookmarked($this->id),
              ],
-            'like' => ['count' => $this->likes->count(),
+            'like' => ['count' => $this->likes_count,
             'isLiked' => $this->checkislike($this->id),
             ],
-            'authorId' => $this->authors[0]->id,
+            'authorId' => $st = isset($this->authors[0]) ? $this->authors[0]->id : 0,
             'categoriesId' => $this->categories->map(function ($categories) {return $categories->id;}),
             'categories' => $this->categories->map(function ($categories) {return CategorieminilistResource::make(category::withcount('posts_category')->where('id',$categories->id)->first());}),
             'postType' => "audio",
@@ -83,5 +84,17 @@ class PostsminilistResource extends JsonResource
     	}else{
 	    	return false;
     	}
+    }
+    private function getresizedimage($imagename,$directory,$dimension)
+    {
+        if ($imagename != "")
+        {
+            $info = pathinfo($imagename);
+            $resizedimagename = asset('storage/'.$directory.'/thumbs/'.$dimension.basename($imagename,'.'.$info['extension']).'.webp');
+            return $resizedimagename;
+        }else{
+	    	return "";
+    	}
+
     }
 }

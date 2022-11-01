@@ -80,13 +80,12 @@ class PostController extends Controller
             $imageName   = time() .  $request->image->getClientOriginalExtension();
             Storage::disk('public')->put( "posts/".$imageName, File::get($request->image));
             // $imageName = $request->image->store('posts');
-            $path = "storage/posts/thumbs/300_".$imageName.'.webp'; 
+            $info = pathinfo($imageName);
+            $path = "storage/posts/thumbs/300_".basename($imageName,'.'.$info['extension']).'.webp'; 
             $image_resize = Image::make($request->image->getRealPath());
             $image_resize->encode('webp', 90);                  
             $image_resize->resize(300, 300);
             $image_resize->save($path);
-        }else{
-            return 'No';
         }
         $post = new post;
         $post->image = $imageName;
@@ -99,6 +98,7 @@ class PostController extends Controller
         $post->access = $request->access? : 0;
         $post->visible = $request->visible? : 0;
         $post->audio_link = $request->audio_link;
+        $post->publish_date = $request->publish_date;
         $post->save();
         $post->tags()->sync($request->tags);
         $post->categories()->sync($request->categories);
@@ -145,6 +145,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $checkimagereq ="";
         if ($request->hasFile('image')) {
             $checkimagereq ="'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg'";
             }
@@ -160,9 +161,10 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
             $imageName   = time() .  $request->image->getClientOriginalExtension();
             Storage::disk('public')->put( "posts/".$imageName, File::get($request->image));
+            $info = pathinfo($imageName);
             //$imageName = $request->image->store('posts');
            // $path = asset('storage/posts/thumbs/')."/".$imageName;
-           $path = "storage/posts/thumbs/300_".$imageName.'.webp'; 
+           $path = "storage/posts/thumbs/300_".basename($imageName,'.'.$info['extension']).'.webp'; 
            $image_resize = Image::make($request->image->getRealPath());
            $image_resize->encode('webp', 90);                  
            $image_resize->resize(300, 300);
@@ -182,6 +184,7 @@ class PostController extends Controller
         $post->access = $request->access? : 0;
         $post->visible = $request->visible? : 0;
         $post->audio_link = $request->audio_link;
+        $post->publish_date = $request->publish_date;
         $post->tags()->sync($request->tags);
         $post->categories()->sync($request->categories);
         $post->authors()->sync($request->authors);

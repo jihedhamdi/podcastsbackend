@@ -22,8 +22,8 @@ class authorsshowResource extends JsonResource
         'displayName' => $this->name,
         'email' => $this->email,
         'gender' => $this->gender,
-        'avatar' => asset('storage/author/'.$this->image),
-        'bgImage' => asset('storage/author/bg/'.$this->bgimage),
+        'avatar' => $this->getresizedimage($this->image,"author","144x144_"),
+        'bgImage' => $this->getresizedimage($this->bgimage,"author/bg","1520x570_"),
         'count' =>  count($this->posts_author),
         'href' => '/author/'.$this->slug,
         'desc' => $this->description,   
@@ -54,5 +54,18 @@ class authorsshowResource extends JsonResource
         'podcasts' =>  $this->posts_author->map(function ($podcasts) {return PostsminilistResource::make(post::with('tags','categories','authors','likes','bookmark')->where('id',$podcasts->id)->first());}),
        
     ];
+    }
+
+    private function getresizedimage($imagename,$directory,$dimension)
+    {
+        if ($imagename != "")
+        {
+            $info = pathinfo($imagename);
+            $resizedimagename = asset('storage/'.$directory.'/thumbs/'.$dimension.basename($imagename,'.'.$info['extension']).'.webp');
+            return $resizedimagename;
+        }else{
+	    	return "";
+    	}
+
     }
 }

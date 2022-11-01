@@ -16,7 +16,7 @@ class InformativesResource extends ResourceCollection
     {
         return ["id"=>"5",
         "title"=>"À PROPOS",
-        "menus"=>[InformativesminilistResource::collection($this->collection)]
+        "menus"=>InformativesminilistResource::collection($this->collection)
     ];
     }
     

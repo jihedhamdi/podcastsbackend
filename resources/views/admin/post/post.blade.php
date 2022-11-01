@@ -97,6 +97,11 @@
                                           </div>
                                       </div>
                                   </div>
+                                  <div class="form-group">
+                                    <label for="publishdate">Date de Publication</label>
+                                    <input type="datetime-local" class="form-control" name ="publish_date" id="publish_date" value ="{{ old('publish_date') }}" >
+                                </div>
+                                  
                                 </div>
                                 <div class="col-lg-6">
                                     <br>
@@ -115,7 +120,7 @@
                                             tabindex="-1" aria-hidden="true" name="tags[]">
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"
-                                                    @if (in_array($tag->id, old('tags'))) selected @endif>{{ $tag->name }}
+                                                    @if (is_array($tag) && in_array($tag->id, old('tags'))) selected @endif>{{ $tag->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -139,7 +144,7 @@
                                             tabindex="-1" aria-hidden="true" name="categories[]">
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
-                                                    @if (in_array($category->id, old('categories'))) selected @endif>{{ $category->name }}
+                                                    @if (is_array($category) && in_array($category->id, old('categories'))) selected @endif>{{ $category->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -166,7 +171,7 @@
                                     <textarea name="body"
                                         style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
                                         id="editor1">{{ old('body') }}</textarea>
-                                </div>
+                                </div> 
                             </div>
 
                             <div class="box-footer">

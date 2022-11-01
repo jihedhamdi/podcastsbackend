@@ -11,6 +11,8 @@ use tizis\laraComments\Traits\Commentable;
 class post extends Model implements ICommentable
 {
     use Commentable;use Sluggable;
+
+    protected $dates = ['publish_date'];
     
     public function sluggable(): array
     {
@@ -24,14 +26,17 @@ class post extends Model implements ICommentable
     {
     	return $this->belongsToMany('App\Model\user\tag','post_tags')->withTimestamps();
     }
-
+    public function postView()
+    {
+        return $this->hasMany('App\Model\user\PostView','post_id','id');
+    }
     public function categories()
     {
     	return $this->belongsToMany('App\Model\user\category','category_posts')->withTimestamps();;
     }
     public function authors()
     {
-        return $this->belongsToMany('App\Model\user\authors','authors_posts')->withTimestamps();;
+        return $this->belongsToMany('App\Model\user\authors','authors_posts')->withTimestamps();
     }
 
     public function getRouteKeyName()

@@ -7,6 +7,7 @@ use App\Model\user\category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CategoryController extends Controller
 {
@@ -60,6 +61,18 @@ class CategoryController extends Controller
             if ($request->hasFile('image')) {
                 $imageName   = time() .  $request->image->getClientOriginalName();
                 Storage::disk('public')->put( "category/".$imageName, File::get($request->image));
+                $info = pathinfo($imageName);
+                $path = "storage/category/thumbs/48x48_".basename($imageName,'.'.$info['extension']).'.webp'; 
+                $image_resize = Image::make($request->image->getRealPath());
+                $image_resize->encode('webp', 90);                  
+                $image_resize->resize(48, 48);
+                $image_resize->save($path);
+
+                $path = "storage/category/thumbs/1520x475_".basename($imageName,'.'.$info['extension']).'.webp'; 
+                $image_resize2 = Image::make($request->image->getRealPath());
+                $image_resize2->encode('webp', 90);                  
+                $image_resize2->resize(1520, 475);
+                $image_resize2->save($path);
                 // $imageName = $request->image->store('posts');
              }
             else{
@@ -122,6 +135,18 @@ class CategoryController extends Controller
             if ($request->hasFile('image')) {
                 $imageName   = time() .  $request->image->getClientOriginalName();
                 Storage::disk('public')->put( "category/".$imageName, File::get($request->image));
+                $info = pathinfo($imageName);
+                $path = "storage/category/thumbs/48x48_".basename($imageName,'.'.$info['extension']).'.webp'; 
+                $image_resize = Image::make($request->image->getRealPath());
+                $image_resize->encode('webp', 90);                  
+                $image_resize->resize(48, 48);
+                $image_resize->save($path);
+
+                $path = "storage/category/thumbs/1520x475_".basename($imageName,'.'.$info['extension']).'.webp'; 
+                $image_resize2 = Image::make($request->image->getRealPath());
+                $image_resize2->encode('webp', 90);                  
+                $image_resize2->resize(1520, 475);
+                $image_resize2->save($path);
             }
         $category = category::find($id);
         $category->name = $request->name;

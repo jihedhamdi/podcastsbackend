@@ -22,7 +22,7 @@ class tagsshowResource extends JsonResource
         'count' =>  count($this->tags_posts),
         'color' => $this->color,
         'taxonomy' => "tag",
-        'podcasts' =>  $this->tags_posts->map(function ($podcasts) {return PostsminilistResource::make(post::with('tags','categories','authors','likes','bookmark')->where('id',$podcasts->id)->first());}),
+        'podcasts' =>  $this->tags_posts->map(function ($podcasts) {return PostsminilistResource::make(post::withcount('tags', 'categories', 'authors', 'likes', 'bookmark', 'postView')->where([['id','=',$podcasts->id], ["posts.status", '=', "1"], ["posts.visible", '=', "0"]])->whereDate('publish_date', '<=', now())->first());}),
 
     ];
     }
