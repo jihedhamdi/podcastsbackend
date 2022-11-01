@@ -25,12 +25,22 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\VerifyUser');
     }
+    public function linkedSocialAccounts()
+    {
+        return $this->hasMany('App\Model\user\LinkedSocialAccount');
+    }
 
     public function getId()
         {
         return $this->id;
         }
     
+    //user bookmarks relationship
+    
+    public function bookmarks()
+    {
+        return $this->belongsToMany('App\Model\user\post', 'bookmarks', 'user_id', 'post_id')->withcount('tags','categories','authors','likes','bookmark','postView')->where([["status", '=',"1"],["visible", '=',"0"],])->whereDate('publish_date','<=',now())->orderBy("bookmarks.updated_at","DESC");
+    }
 
     /**
      * The attributes that should be hidden for arrays.

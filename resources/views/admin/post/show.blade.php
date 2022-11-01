@@ -47,7 +47,7 @@
                           <th>Titre</th>
                           <th>Sous-Titre</th>
                           <th>Slug</th>
-                          <th>Date de création</th>
+                          <th>Date de Publication</th>
                           @can('posts.update',Auth::user())
                           <th>Etat</th>
                           <th>Gestion</th>
@@ -61,7 +61,7 @@
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->subtitle }}</td>
                             <td>{{ $post->slug }}</td>
-                            <td>{{ $post->created_at }}</td>
+                            <td>{{ $post->publish_date }}</td>
 
                             @can('posts.update',Auth::user())
                               <td><input data-id="{{ $post->id }}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $post->status ? 'checked' : '' }}></td>
@@ -121,7 +121,11 @@
             }
         });
     })
-    $("#example1").DataTable();
+    $("#example1").DataTable({
+      "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+           }
+    });
 
   });
 </script>

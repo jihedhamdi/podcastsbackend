@@ -7,6 +7,7 @@ use App\Model\admin\admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
     /*
@@ -37,8 +38,8 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        $newpwd = bcrypt("jihed12345");
-        return view('admin.login',compact("newpwd"));
+        //$newpwd = bcrypt("jihed12345");
+        return view('admin.login');
     }
 
 
@@ -55,12 +56,12 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-        $admin = admin::where('email',$request->email)->first();
-        if (count($admin)) {
+        $admin = admin::where('email', $request->email)->first();
+        if (is_countable($admin)) {
             if ($admin->status == 0) {
-                return ['email'=>'inactive','password'=>'You are not an active person, please contact Admin'];
-            }else{
-                return ['email'=>$request->email,'password'=>$request->password,'status'=>1];
+                return ['email' => 'inactive', 'password' => 'You are not an active person, please contact Admin'];
+            } else {
+                return ['email' => $request->email, 'password' => $request->password, 'status' => 1];
             }
         }
         return $request->only($this->username(), 'password');

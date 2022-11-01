@@ -65,7 +65,23 @@ class PostPolicy
     {
         return $this->getPermission($user,12);
     }
-
+    public function page_informative(admin $user)
+    {
+        return $this->getPermission($user,13);
+    }
+    public function client(admin $user)
+    {
+        return $this->getPermission($user,14);
+    }
+   
+    public function auteur(admin $user)
+    {
+        return $this->getPermission($user,15);
+    }
+    public function comments(admin $user)
+    {
+        return $this->getPermission($user,16);
+    }
     protected function getPermission($user,$p_id)
     {
         foreach ($user->roles as $role) {

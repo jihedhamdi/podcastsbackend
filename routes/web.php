@@ -20,7 +20,7 @@ if(version_compare(PHP_VERSION, '7.3.31', '>=')) {
 //Admin Routes
 Route::group(['namespace' => 'Admin'],function(){
 	Route::get('/','HomeController@index')->name('admin.home');
-	Route::get('admin/home','HomeController@index')->name('admin.home');
+	//Route::get('admin/home','HomeController@index')->name('admin.home');
 	// Users Routes
 	Route::resource('admin/user','UserController');
 	Route::get('admin/user_Status', 'UserController@changeStatus');
@@ -38,8 +38,14 @@ Route::group(['namespace' => 'Admin'],function(){
 	Route::resource('admin/category','CategoryController');
 	// Author Routes
 	Route::resource('admin/authors','AuthorController');
+	// Page Informative ordering
+	Route::post('admin/gestion-page-informative/update-order', 'PageInformativeController@updateOrder')->name('gestion-page-informative.updateOrder');
 	//	Gestion Page Informative Routes
 	Route::resource('admin/gestion-page-informative','PageInformativeController');
+
+	// Gestion des commentaire admin
+	Route::resource('admin/comments','CommentController');
+    Route::get('admin/approuvecomment', 'CommentController@approuve');
 
 	// Gestion utilisateur Routes
 	Route::resource('admin/gestion-users','UsersController');

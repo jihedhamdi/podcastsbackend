@@ -1,9 +1,16 @@
 <?php
 
+if(version_compare(PHP_VERSION, '7.3.31', '>=')) {
+   error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+}
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use tizis\laraComments\Http\Controllers\CommentsController;
 use tizis\laraComments\Http\Controllers\VoteController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +65,9 @@ Route::group(['middleware' => 'cors', 'namespace' => 'Api'], function () {
     // show
     Route::get('informative/{slug}', 'InformativeController@show');
 
+    // nous contacter
+    Route::post('contact', 'ContactController@ContactForm');
+
 
    // Authentification
    Route::post('login', 'Auth\PassportController@login');
@@ -80,6 +90,8 @@ Route::group(['middleware' => 'cors', 'namespace' => 'Api'], function () {
       Route::post('saveLike', 'PostsController@saveLike');
       //save Bookmarks
       Route::post('saveBookmark', 'PostsController@saveBookmark');
+      //show Bookmarks
+      Route::get('showBookmarks', 'PostsController@showbookmark');
 
       if (config('comments.route.root') !== null) {
          Route::group(['prefix' => config('comments.route.root')], static function () {
@@ -94,8 +106,21 @@ Route::group(['middleware' => 'cors', 'namespace' => 'Api'], function () {
             });
          });
       }
-   });
 
+      
+
+   });
+   Route::get('auth/callback', function () {
+      
+      $user = Socialite::driver('google')->user();
+     
+            // OAuth 2.0 providers...
+      $token = $user->token;
+      $refreshToken = $user->refreshToken;
+      $expiresIn = $user->expiresIn;
+   
+      return response()->json(['success'=>'connected','token'=>$token,'refreshToken'=>$refreshToken,'expiresIn'=>$expiresIn], 200);
+  });
    //Route::post('register', 'RegisterController@create');
    //Route::get('test', 'RegisterController@test');
 

@@ -11,7 +11,7 @@ class InformativeController extends Controller
 {
     public function index(){
         InformativesResource::withoutWrapping();
-        $PageInformative = PageInformative::get();
+        $PageInformative = PageInformative::orderBy("page_informatives.Order","ASC")->get();
         return new InformativesResource($PageInformative);
     }
 

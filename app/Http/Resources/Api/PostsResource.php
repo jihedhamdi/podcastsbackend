@@ -25,18 +25,18 @@ class PostsResource extends JsonResource
         //    return parent::toArray($request);
         return [
             'id' => $this->id,
-            'featuredImage' => asset('storage/posts/thumbs/300_'.$this->image.'.webp'),
+            'featuredImage' => $this->getresizedimage($this->image,"posts","300_"),
             'title' => $this->title,
             'desc' => $this->subtitle,
-            'date' => $this->updated_at->format('M d, y'),
-            'href' => '/podcast/'.$this->slug,
-            'commentCount' => 0,
-            'viewdCount' => 0,
+            'date' => $this->publish_date->format('M d, y'),
+            'href' => '/podcasts/'.$this->slug,
+            'commentCount' => $this->commentsWithChildrenAndCommenter()->where("Approuve",0)->orWhereNull('Approuve')->count(),
+            'viewdCount' => $this->post_view_count,
             'readingTime' => 0,
-            'bookmark' => ['count' => $this->bookmark->count(),
+            'bookmark' => ['count' => $this->bookmark_count,
             'isBookmarked' => $this->checkisbookmarked($this->id),
              ],
-            'like' => ['count' => $this->likes->count(),
+            'like' => ['count' => $this->likes_count ,
              'isLiked' => $this->checkislike($this->id),
             ],
             'author' => ['id' => $this->authors[0]->id,
@@ -44,17 +44,17 @@ class PostsResource extends JsonResource
              'lastName' => $this->authors[0]->lastName,
              'displayName' => $this->authors[0]->name,
              'email' => $this->authors[0]->email,
-             'avatar' => asset('storage/author/thumbs/300_'.$this->authors[0]->image),
+             'avatar' => $this->getresizedimage($this->authors[0]->image,"author","144x144_"),
              'count' => $this->countauthorarticles($this->authors[0]->id),
              'href' => '/author/'. $this->authors[0]->slug,
-             'desc' => $this->authors[0]->description,
+             'desc' => strip_tags($this->authors[0]->description),
              'jobName' => $this->authors[0]->jobName,
             ],
             'categories' => $this->categories->map(function ($categories) { return  ['id' => $categories->id,
                 'name' => $categories->name,
                 'href' => '/categories/'.$categories->slug,
                 'thumbnail' => asset('storage/category/'.$categories->image),
-                'count' =>  count($categories->pivot),
+                'count' =>  $categories->pivot->exists(),
                 'color' => $categories->color,
                 'taxonomy' => "category"                
             ];}),
@@ -64,12 +64,12 @@ class PostsResource extends JsonResource
                 'name' => $tags->name,
                 'href' => '/tags/'.$tags->slug,
                 'thumbnail' => asset('storage/tags/'.$tags->image),
-                'count' =>  count($tags->pivot),
+                'count' =>  $tags->pivot->exists(),
                 'color' => $tags->color,
                 'taxonomy' => "tags"                
             ];}),
             'content' => $this->body,
-            'comments' => $this->getarticlecomments($this->comments_model)
+            'comments' => $this->getarticlecomments($this)
         ];
     }
 
@@ -120,6 +120,19 @@ class PostsResource extends JsonResource
                 ->orderBy("created_at", "desc")
                 ->get()
         );
+
+    }
+
+    private function getresizedimage($imagename,$directory,$dimension)
+    {
+        if ($imagename != "")
+        {
+            $info = pathinfo($imagename);
+            $resizedimagename = asset('storage/'.$directory.'/thumbs/'.$dimension.basename($imagename,'.'.$info['extension']).'.webp');
+            return $resizedimagename;
+        }else{
+	    	return "";
+    	}
 
     }
 }

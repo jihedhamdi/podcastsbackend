@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\admin\PageInformative;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class PageInformativeController extends Controller
@@ -17,10 +19,11 @@ class PageInformativeController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('can:posts.page_informative');
     }
     public function index()
     {
-        $pageinformatives = PageInformative::all();
+        $pageinformatives = PageInformative::orderBy('Order','asc')->get();
         return view('admin.informative.show', compact('pageinformatives'));
     }
 
@@ -116,4 +119,19 @@ class PageInformativeController extends Controller
         PageInformative::where('id',$id)->delete();
         return redirect()->back();
     }
+
+    public function updateOrder(Request $request){
+        
+            $pageinformatives = PageInformative::all();
+    
+            foreach ($pageinformatives as $pageinformative) {
+                foreach ($request->order as $order) {
+                    if ($order['id'] == $pageinformative->id) {
+                        $pageinformative->update(['Order' => $order['position']]);
+                    }
+                }
+            }
+            
+            return response('Update Successfully.', 200);
+     }
 }

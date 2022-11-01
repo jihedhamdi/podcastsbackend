@@ -13,7 +13,7 @@ class tag extends Model
 
     public function tags_posts()
     {
-    	return $this->belongsToMany('App\Model\user\post','post_tags');
+    	return $this->belongsToMany('App\Model\user\post','post_tags')->where([["posts.status", '=', "1"], ["posts.visible", '=', "0"]])->whereDate('posts.publish_date', '<=', now());
     }
     public function getRouteKeyName()
     {
